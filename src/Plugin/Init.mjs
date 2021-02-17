@@ -9,10 +9,13 @@ export default class TeqFw_Http2_Plugin_Init {
         const DEF = spec['TeqFw_Http2_Defaults$'];    // instance singleton
 
         this.getCommands = function () {
-            return [];
+            return [
+                'TeqFw_Http2_Cli_Start$',
+                'TeqFw_Http2_Cli_Stop$',
+            ];
         };
 
-        this.getHttp2StaticMaps = function () {
+        this.getHttpStaticMaps = function () {
             return {
                 '/vue/': '/vue/dist/',
             };
@@ -24,7 +27,7 @@ export default class TeqFw_Http2_Plugin_Init {
 
         this.getHttp2Services = function () {
             return [
-                'TeqFw_Http2_Back_Service_Some$',
+                // 'TeqFw_Http2_Back_Service_Some$',
             ];
         };
     }

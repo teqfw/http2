@@ -23,7 +23,8 @@
   },
   "homepage": "https://github.com/@teqfw/http2#readme",
   "dependencies": {
-    "@teqfw/core-app": "github:teqfw/core-app"
+    "@teqfw/core-app": "github:teqfw/core-app",
+    "path-to-regexp": "*"
   },
   "teqfw": {
     "autoload": {
