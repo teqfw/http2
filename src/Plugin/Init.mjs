@@ -2,11 +2,11 @@
  * Class to integrate plugin into TeqFW application.
  * @extends TeqFw_Core_App_Plugin_Init_Base
  */
-export default class Vendor_Project_Plugin_Init {
+export default class TeqFw_Http2_Plugin_Init {
 
     constructor(spec) {
-        /** @type {Vendor_Project_Defaults} */
-        const DEF = spec['Vendor_Project_Defaults$'];    // instance singleton
+        /** @type {TeqFw_Http2_Defaults} */
+        const DEF = spec['TeqFw_Http2_Defaults$'];    // instance singleton
 
         this.getCommands = function () {
             return [];
@@ -24,7 +24,7 @@ export default class Vendor_Project_Plugin_Init {
 
         this.getHttp2Services = function () {
             return [
-                'Vendor_Project_Back_Service_Some$',
+                'TeqFw_Http2_Back_Service_Some$',
             ];
         };
     }
