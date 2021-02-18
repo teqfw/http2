@@ -129,10 +129,10 @@ class TeqFw_Http2_Back_Server_Handler_Api {
                     if (item.initClass) {
                         /** @type {TeqFw_Core_App_Plugin_Init_Base} */
                         const plugin = await container.get(item.initClass, mainClassName);
-                        if (plugin && (typeof plugin.getHttp2Services === 'function')) {
-                            const realm = plugin.getHttp2BackRealm();
+                        if (plugin && (typeof plugin.getServicesList === 'function')) {
+                            const realm = plugin.getServicesRealm();
                             const prefix = $path.join('/', DEF.REALM_API, realm);
-                            const map = plugin.getHttp2Services();
+                            const map = plugin.getServicesList();
                             for (const one of map) {
                                 /** @type {TeqFw_Http2_Back_Server_Handler_Api_Factory} */
                                 const factory = await container.get(one, mainClassName);

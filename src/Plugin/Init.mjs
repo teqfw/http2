@@ -21,11 +21,11 @@ export default class TeqFw_Http2_Plugin_Init {
             };
         };
 
-        this.getHttp2BackRealm = function () {
+        this.getServicesRealm = function () {
             return DEF.BACK_REALM;
         };
 
-        this.getHttp2Services = function () {
+        this.getServicesList = function () {
             return [
                 // 'TeqFw_Http2_Back_Service_Some$',
             ];
