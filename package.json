@@ -24,6 +24,7 @@
   "homepage": "https://github.com/@teqfw/http2#readme",
   "dependencies": {
     "@teqfw/core-app": "github:teqfw/core-app",
+    "mime-types": "*",
     "path-to-regexp": "*"
   },
   "teqfw": {
