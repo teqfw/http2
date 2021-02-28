@@ -103,8 +103,10 @@ class TeqFw_Http2_Back_Server_Handler_Api {
                                 }
                                 if (response) {
                                     result.complete = true;
-                                    result.headers[H2.HTTP2_HEADER_STATUS] = H2.HTTP_STATUS_OK;
-                                    result.headers[H2.HTTP2_HEADER_CONTENT_TYPE] = 'application/json';
+                                    result.headers[H2.HTTP2_HEADER_STATUS] =
+                                        result.headers[H2.HTTP2_HEADER_STATUS] || H2.HTTP_STATUS_OK;
+                                    result.headers[H2.HTTP2_HEADER_CONTENT_TYPE] =
+                                        result.headers[H2.HTTP2_HEADER_CONTENT_TYPE] || 'application/json';
                                     result.output = JSON.stringify({data: response});
                                 }
                             }
