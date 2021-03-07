@@ -17,7 +17,7 @@ export default class TeqFw_Http2_Plugin_Init {
 
         this.getHttpStaticMaps = function () {
             return {
-                '/vue/': '/vue/dist/',
+                '/web/path/': '/fs/path/',
             };
         };
 
