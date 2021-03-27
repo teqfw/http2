@@ -35,10 +35,10 @@ class TeqFw_Http2_Back_Server_Handler_Api_Result {
 class TeqFw_Http2_Back_Server_Handler_Api {
 
     constructor(spec) {
-        /** @type {TeqFw_Core_App_Defaults} */
-        const DEF = spec['TeqFw_Core_App_Defaults$'];
+        /** @type {TeqFw_Http2_Defaults} */
+        const DEF = spec['TeqFw_Http2_Defaults$'];
         /** @type {TeqFw_Di_Container} */
-        const container = spec[DEF.DI_CONTAINER];   // named singleton
+        const container = spec[DEF.MOD_CORE.DI_CONTAINER];   // named singleton
         /** @type {TeqFw_Core_App_Logger} */
         const logger = spec['TeqFw_Core_App_Logger$'];  // instance singleton
         /** @type {TeqFw_Core_App_Plugin_Registry} */
@@ -52,7 +52,7 @@ class TeqFw_Http2_Back_Server_Handler_Api {
          */
         this.createHandler = async function () {
             // PARSE INPUT & DEFINE WORKING VARS
-            const regexApi = new RegExp(`^(/${DEF.REALM_API}/)(.*)`);
+            const regexApi = new RegExp(`^(.*)(/${DEF.MOD_CORE.REALM_API}/)(.*)`);
             let router = {};
 
             // DEFINE INNER FUNCTIONS
@@ -71,12 +71,13 @@ class TeqFw_Http2_Back_Server_Handler_Api {
                 /** @type {TeqFw_Http2_Back_Server_Handler_Api_Context} */
                 const apiCtx = new TeqFw_Http2_Back_Server_Handler_Api_Context();
                 apiCtx.sharedContext = context.shared;
+                apiCtx.sharedContext[DEF.HTTP_SHARE_HEADERS] = context.headers;
                 const path = context.headers[H2.HTTP2_HEADER_PATH];
                 const parts = regexApi.exec(path);
                 if (Array.isArray(parts)) {
                     for (const route in router) {
                         const uri = context.headers[H2.HTTP2_HEADER_PATH];
-                        if (route === uri) {
+                        if (uri.includes(route)) {
                             const parser = router[route][PARSE];
                             const service = router[route][SERVICE];
                             // try to parse request data
@@ -133,7 +134,7 @@ class TeqFw_Http2_Back_Server_Handler_Api {
                         const plugin = await container.get(item.initClass, mainClassName);
                         if (plugin && (typeof plugin.getServicesList === 'function')) {
                             const realm = plugin.getServicesRealm();
-                            const prefix = $path.join('/', DEF.REALM_API, realm);
+                            const prefix = $path.join('/', DEF.MOD_CORE.REALM_API, realm);
                             const map = plugin.getServicesList();
                             for (const one of map) {
                                 /** @type {TeqFw_Http2_Back_Server_Handler_Api_Factory} */

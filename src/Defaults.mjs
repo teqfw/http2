@@ -1,5 +1,6 @@
 export default class TeqFw_Http2_Defaults {
     BACK_REALM = 'http2';  // realm for API services ('/api/http2/...') and CLI commands ('http2-...')
+    HTTP_SHARE_HEADERS = `${this.BACK_REALM}/headers`; // Attribute of the HTTP context to share HTTP headers.
     PID_FILE_NAME = './var/server.pid'; // PID file to stop running server.
     SERVER_DEFAULT_PORT = 3000; // Default port for listing.
 
