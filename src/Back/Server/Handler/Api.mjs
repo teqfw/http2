@@ -42,7 +42,9 @@ class TeqFw_Http2_Back_Server_Handler_Api {
         /** @type {TeqFw_Core_App_Logger} */
         const logger = spec['TeqFw_Core_App_Logger$'];  // instance singleton
         /** @type {TeqFw_Core_App_Plugin_Registry} */
-        const registry = spec['TeqFw_Core_App_Plugin_Registry$'];   // instance singleton
+        const regPlugin = spec['TeqFw_Core_App_Plugin_Registry$'];   // instance singleton
+        /** @type {TeqFw_Http2_Back_Realm_Registry} */
+        const regRealms = spec['TeqFw_Http2_Back_Realm_Registry$']; // instance singleton
         /** @type {typeof TeqFw_Http2_Back_Server_Stream_Report} */
         const Report = spec['TeqFw_Http2_Back_Server_Stream#Report'];   // class constructor
 
@@ -52,7 +54,7 @@ class TeqFw_Http2_Back_Server_Handler_Api {
          */
         this.createHandler = async function () {
             // PARSE INPUT & DEFINE WORKING VARS
-            const regexApi = new RegExp(`^(.*)(/${DEF.MOD_CORE.REALM_API}/)(.*)`);
+            const regexApi = new RegExp(`^(.*)(/${DEF.MOD_CORE.AREA_API}/)(.*)`);
             let router = {};
 
             // DEFINE INNER FUNCTIONS
@@ -76,8 +78,8 @@ class TeqFw_Http2_Back_Server_Handler_Api {
                 const parts = regexApi.exec(path);
                 if (Array.isArray(parts)) {
                     for (const route in router) {
-                        const uri = context.headers[H2.HTTP2_HEADER_PATH];
-                        if (uri.includes(route)) {
+                        const addr = regRealms.parseAddress(path);
+                        if (addr.route?.includes(route)) {
                             const parser = router[route][PARSE];
                             const service = router[route][SERVICE];
                             // try to parse request data
@@ -127,14 +129,14 @@ class TeqFw_Http2_Back_Server_Handler_Api {
              */
             async function initRoutes(mainClassName) {
                 logger.debug('Map plugins API services:');
-                const items = registry.items();
+                const items = regPlugin.items();
                 for (const item of items) {
                     if (item.initClass) {
                         /** @type {TeqFw_Core_App_Plugin_Init_Base} */
                         const plugin = await container.get(item.initClass, mainClassName);
                         if (plugin && (typeof plugin.getServicesList === 'function')) {
                             const realm = plugin.getServicesRealm();
-                            const prefix = $path.join('/', DEF.MOD_CORE.REALM_API, realm);
+                            const prefix = $path.join('/', realm);
                             const map = plugin.getServicesList();
                             for (const one of map) {
                                 /** @type {TeqFw_Http2_Back_Server_Handler_Api_Factory} */

@@ -1,7 +1,17 @@
+/**
+ *Factory to create handler for static files.
+ *
+ * @namespace TeqFw_Http2_Back_Server_Handler_Static
+ */
+// MODULE'S IMPORT
 import $fs from 'fs';
 import $mimeTypes from 'mime-types';
 import $path from 'path';
 import {constants as H2} from 'http2';
+
+// MODULE'S VARS
+// const NS = 'TeqFw_Http2_Back_Server_Handler_Static';
+const INDEX_NAME = 'index.html';
 
 /**
  * Factory to create handler for static files.
@@ -14,15 +24,17 @@ export default class TeqFw_Http2_Back_Server_Handler_Static {
         /** @type {TeqFw_Core_App_Defaults} */
         const DEF = spec['TeqFw_Core_App_Defaults$'];
         /** @type {TeqFw_Di_Container} */
-        const container = spec[DEF.DI_CONTAINER];   // named singleton
+        const container = spec[DEF.DI_CONTAINER]; // named singleton
         /** @type {TeqFw_Core_App_Config} */
-        const config = spec['TeqFw_Core_App_Config$'];  // instance singleton
+        const config = spec['TeqFw_Core_App_Config$']; // instance singleton
         /** @type {TeqFw_Core_App_Logger} */
-        const logger = spec['TeqFw_Core_App_Logger$'];  // instance singleton
+        const logger = spec['TeqFw_Core_App_Logger$']; // instance singleton
         /** @type {TeqFw_Core_App_Plugin_Registry} */
-        const registry = spec['TeqFw_Core_App_Plugin_Registry$'];   // instance singleton
+        const regPlugins = spec['TeqFw_Core_App_Plugin_Registry$']; // instance singleton
+        /** @type {TeqFw_Http2_Back_Realm_Registry} */
+        const regRealms = spec['TeqFw_Http2_Back_Realm_Registry$']; // instance singleton
         /** @type {typeof TeqFw_Http2_Back_Server_Stream_Report} */
-        const Report = spec['TeqFw_Http2_Back_Server_Stream#Report'];   // class constructor
+        const Report = spec['TeqFw_Http2_Back_Server_Stream#Report']; // class constructor
 
         /**
          * @returns {Promise<TeqFw_Http2_Back_Server_Handler_Static.handler>}
@@ -56,6 +68,23 @@ export default class TeqFw_Http2_Back_Server_Handler_Static {
                 function getPath(url) {
 
                     // DEFINE INNER FUNCTIONS
+                    function normalize(path) {
+                        let result = path;
+                        const addr = regRealms.parseAddress(path);
+                        if (addr.area !== undefined) {
+                            result = `/${addr.area}${addr.route}`;
+                        } else if (addr.realm !== undefined) {
+                            result = `/${addr.realm}${addr.route}`;
+                        } else {
+                            result = `${addr.route}`;
+                        }
+                        // add 'index.html' for 'web' area
+                        if ((addr.area === DEF.AREA_WEB) && (result.slice(-1) === '/')) {
+                            result += INDEX_NAME;
+                        }
+                        return result;
+                    }
+
                     function pathMap(url) {
                         let result = url;
                         for (const key in mapRoutes) {
@@ -74,7 +103,7 @@ export default class TeqFw_Http2_Back_Server_Handler_Static {
 
                     // MAIN FUNCTIONALITY
                     let result;
-                    const normal = (url === '/') ? '/index.html' : url;
+                    const normal = normalize(url);
                     const mapped = pathMap(normal);
                     if (normal === mapped) {   // URL w/o mapping should be resolved relative to web root
                         result = $path.join(rootWeb, normal);
@@ -88,8 +117,8 @@ export default class TeqFw_Http2_Back_Server_Handler_Static {
                 const result = new Report();
                 /** @type {Object<String, String>} */
                 const headers = context.headers;
-                const url = headers[H2.HTTP2_HEADER_PATH];
-                const path = getPath(url);
+                const webPath = headers[H2.HTTP2_HEADER_PATH];
+                const path = getPath(webPath);
                 if ($fs.existsSync(path) && $fs.statSync(path).isFile()) {
                     const mimeType = $mimeTypes.lookup(path);
                     if (mimeType) {
@@ -105,15 +134,15 @@ export default class TeqFw_Http2_Back_Server_Handler_Static {
             // MAIN FUNCTIONALITY
             // compose static routes map for plugins
             logger.debug('Map plugins folders for static resources:');
-            const items = registry.items();
+            const items = regPlugins.items();
             for (const item of items) {
                 // map URLs to filesystem for ES6/JS sources
-                const srcUrl = $path.join('/', DEF.REALM_SRC, item.name);
+                const srcUrl = $path.join('/', DEF.AREA_SRC, item.name);
                 const srcPath = $path.join(item.path, DEF.FS_SRC);
                 mapRoutes[srcUrl] = srcPath;
                 logger.debug(`    ${srcUrl} => ${srcPath}`);
                 // map URLs to filesystem for static resources
-                const statUrl = $path.join('/', DEF.REALM_WEB, item.name);
+                const statUrl = $path.join('/', DEF.AREA_WEB, item.name);
                 const statPath = $path.join(item.path, DEF.FS_WEB);
                 mapRoutes[statUrl] = statPath;
                 logger.debug(`    ${statUrl} => ${statPath}`);
@@ -124,7 +153,7 @@ export default class TeqFw_Http2_Back_Server_Handler_Static {
                     if (plugin && (typeof plugin.getHttpStaticMaps === 'function')) {
                         const map = plugin.getHttpStaticMaps();
                         for (const key in map) {
-                            const url = $path.join('/', DEF.REALM_SRC, key);
+                            const url = $path.join('/', DEF.AREA_SRC, key);
                             const path = $path.join(rootFs, 'node_modules', map[key]);
                             mapRoutes[url] = path;
                             logger.debug(`    ${url} => ${path}`);
