@@ -79,7 +79,11 @@ export default class TeqFw_Http2_Back_Server_Handler_Static {
                             result = `${addr.route}`;
                         }
                         // add 'index.html' for 'web' area
-                        if ((addr.area === DEF.AREA_WEB) && (result.slice(-1) === '/')) {
+                        if (
+                            (addr.area !== DEF.AREA_API) &&
+                            (addr.area !== DEF.AREA_SRC) &&
+                            (result.slice(-1) === '/')
+                        ) {
                             result += INDEX_NAME;
                         }
                         return result;
