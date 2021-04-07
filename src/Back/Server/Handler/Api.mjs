@@ -46,7 +46,7 @@ class TeqFw_Http2_Back_Server_Handler_Api {
         /** @type {TeqFw_Http2_Back_Realm_Registry} */
         const regRealms = spec['TeqFw_Http2_Back_Realm_Registry$']; // instance singleton
         /** @type {typeof TeqFw_Http2_Back_Server_Stream_Report} */
-        const Report = spec['TeqFw_Http2_Back_Server_Stream#Report'];   // class constructor
+        const Report = spec['TeqFw_Http2_Back_Server_Stream#Report'];   // class
 
         /**
          * Create handler to load user sessions data to request context.

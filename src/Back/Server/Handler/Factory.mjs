@@ -16,7 +16,7 @@ export default class TeqFw_Http2_Back_Server_Handler_Factory {
         /** @type {TeqFw_Core_App_Logger} */
         const logger = spec['TeqFw_Core_App_Logger$'];  // instance singleton
         /** @type {typeof TeqFw_Http2_Back_Server_Stream_Report} */
-        const Report = spec['TeqFw_Http2_Back_Server_Stream#Report'];   // class constructor
+        const Report = spec['TeqFw_Http2_Back_Server_Stream#Report'];   // class
 
         // DEFINE THIS INSTANCE METHODS (NOT IN PROTOTYPE)
 

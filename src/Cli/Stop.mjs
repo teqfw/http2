@@ -24,7 +24,7 @@ function Factory(spec) {
     /** @type {TeqFw_Core_App_Launcher.Bootstrap} */
     const bootCfg = spec[DEF.MOD_CORE.DI_BOOTSTRAP]; // named singleton
     /** @type {typeof TeqFw_Core_App_Cli_Command_Data} */
-    const Command = spec['TeqFw_Core_App_Cli_Command#Data'];    // class constructor
+    const Command = spec['TeqFw_Core_App_Cli_Command#Data'];    // class
 
     // DEFINE INNER FUNCTIONS
     /**

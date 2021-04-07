@@ -30,7 +30,7 @@ function Factory(spec) {
     /** @type {TeqFw_Core_App_Logger} */
     const logger = spec['TeqFw_Core_App_Logger$'];  // instance singleton
     /** @type {typeof TeqFw_Core_App_Cli_Command_Data} */
-    const Command = spec['TeqFw_Core_App_Cli_Command#Data'];    // class constructor
+    const Command = spec['TeqFw_Core_App_Cli_Command#Data'];    // class
 
     // DEFINE INNER FUNCTIONS
     /**
