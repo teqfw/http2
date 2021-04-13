@@ -26,11 +26,5 @@
     "@teqfw/core-app": "github:teqfw/core-app",
     "mime-types": "*",
     "path-to-regexp": "*"
-  },
-  "teqfw": {
-    "autoload": {
-      "ns": "TeqFw_Http2",
-      "path": "./src"
-    }
   }
 }

@@ -24,7 +24,7 @@ function Factory(spec) {
     /** @type {TeqFw_Core_App_Launcher.Bootstrap} */
     const bootCfg = spec[DEF.MOD_CORE.DI_BOOTSTRAP]; // named singleton
     /** @type {TeqFw_Di_Container} */
-    const container = spec['TeqFw_Di_Container$'];  // instance singleton
+    const container = spec[DEF.MOD_CORE.DI_CONTAINER];  // instance singleton
     /** @type {TeqFw_Core_App_Config} */
     const config = spec['TeqFw_Core_App_Config$'];  // instance singleton
     /** @type {TeqFw_Core_App_Logger} */
