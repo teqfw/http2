@@ -87,7 +87,7 @@ async function Factory(spec) {
         // MAIN FUNCTIONALITY
         const result = new Report();
         /** @type {TeqFw_Http2_Plugin_Handler_Service.Context} */
-        const apiCtx = new TeqFw_Http2_Plugin_Handler_Service.Context();
+        const apiCtx = new Context();
         apiCtx.sharedContext = context.shared;
         apiCtx.sharedContext[DEF.HTTP_SHARE_HEADERS] = context.headers;
         const path = context.headers[H2.HTTP2_HEADER_PATH];
@@ -166,8 +166,7 @@ async function Factory(spec) {
                             router[route][PARSE] = factory.createInputParser();
                         }
                         /** @type {TeqFw_Http2_Api_Service_Factory.service} */
-                        const service = factory.createService();
-                        router[route][SERVICE] = service;
+                        router[route][SERVICE] = factory.createService();
                     }
                 }
             }
