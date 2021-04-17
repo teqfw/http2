@@ -65,14 +65,19 @@ class TeqFw_Http2_Back_Server_Stream {
     constructor(spec) {
         // CONSTRUCTOR INJECTED DEPS
         /** @type {TeqFw_Core_App_Defaults} */
-        const DEF = spec['TeqFw_Core_App_Defaults$'];   // instance singleton
+        const DEF = spec['TeqFw_Core_App_Defaults$']; // instance singleton
         /** @type {TeqFw_Di_Container} */
-        const container = spec[DEF.DI_CONTAINER];   // named singleton
+        const container = spec[DEF.DI_CONTAINER]; // named singleton
         /** @type {TeqFw_Core_App_Logger} */
-        const logger = spec['TeqFw_Core_App_Logger$'];  // instance singleton
+        const logger = spec['TeqFw_Core_App_Logger$']; // instance singleton
+        /** @type {TeqFw_Di_IdParser} */
+        const idParser = spec['TeqFw_Di_IdParser$']; // instance singleton
+        /** @type {TeqFw_Core_App_Plugin_Registry} */
+        const registry = spec['TeqFw_Core_App_Plugin_Registry$']; // instance singleton
+        const {Handler: DDesc} = spec['TeqFw_Http2_Api_Plugin_Desc']; // ES6 module destructing
 
         // PARSE INPUT & DEFINE WORKING VARS
-        /** @type {Array.<TeqFw_Http2_Back_Server_Handler_Factory.handler>} */
+        /** @type {Array.<function>} */
         const handlers = [];  // ordered array with handlers
 
         // DEFINE INNER FUNCTIONS
@@ -222,26 +227,38 @@ class TeqFw_Http2_Back_Server_Stream {
          * @returns {Promise<TeqFw_Http2_Back_Server_Stream.handler>}
          */
         this.createHandler = async function () {
-            // PARSE INPUT & DEFINE WORKING VARS
+            // DEFINE INNER FUNCTIONS
+            async function initHandlers() {
+                const result = [], hndlReg = [];
+                const ID = 'id', DESC = 'desc', HNDL = 'handler';
+                // analyze plugins and create handlers
+                const plugins = registry.items();
+                for (const plugin of plugins) {
+                    if (Array.isArray(plugin.teqfw?.http2?.handlers)) {
+                        const handlers = plugin.teqfw.http2.handlers;
+                        for (const one of handlers) {
+                            /** @type {TeqFw_Http2_Api_Plugin_Desc.Handler} */
+                            const data = Object.assign(new DDesc(), one);
+                            const hndl = await container.get(data.depId);
+                            const parts = idParser.parse(data.depId);
+                            hndlReg.push({[ID]: parts.nameModule, [HNDL]: hndl, [DESC]: data});
+                        }
+                    }
+                }
+                // organize handlers by priority
+                hndlReg.sort((a, b) => {
+                    const weightA = a[DESC]?.weight ?? 0;
+                    const weightB = b[DESC]?.weight ?? 0;
+                    return weightB - weightA; // reverse order, from the largest to the smallest
+                })
+                for (const one of hndlReg) result.push(one[HNDL]);
+                return result;
+            }
 
-            /** @type {TeqFw_Http2_Back_Server_Handler_Api} */
-            const factHndlApi = await container.get('TeqFw_Http2_Back_Server_Handler_Api$', this.constructor.name);
-            /** @type {TeqFw_Http2_Back_Server_Handler_Static} */
-            const factHndlStatic = await container.get('TeqFw_Http2_Back_Server_Handler_Static$', this.constructor.name);
-            /** @type {Fl32_Teq_User_App_Server_Handler_Session} */
-            const factHndlUserSession = await container.get('Fl32_Teq_User_App_Server_Handler_Session$', this.constructor.name);
+            // MAIN FUNCTIONALITY
+            const hndlsToAdd = await initHandlers();
+            handlers.push(...hndlsToAdd);
 
-            /** @type {TeqFw_Http2_Back_Server_Handler_Factory.handler} */
-            const hndlApi = await factHndlApi.createHandler();
-            /** @type {TeqFw_Http2_Back_Server_Handler_Factory.handler} */
-            const hndlStatic = await factHndlStatic.createHandler();
-            /** @type {TeqFw_Http2_Back_Server_Handler_Factory.handler} */
-            const hndlUser = await factHndlUserSession.createHandler();
-
-            // push handlers to registry with orders
-            handlers.push(hndlUser);
-            handlers.push(hndlApi);
-            handlers.push(hndlStatic);
 
             // DEFINE INNER FUNCTIONS
             /**

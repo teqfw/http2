@@ -2,5 +2,19 @@
   "autoload": {
     "ns": "TeqFw_Http2",
     "path": "./src"
+  },
+  "http2": {
+    "handlers": [
+      {
+        "depId": "TeqFw_Http2_Plugin_Handler_Service$",
+        "before": [
+          "TeqFw_Http2_Plugin_Handler_Static"
+        ],
+        "weight": 100
+      }, {
+        "depId": "TeqFw_Http2_Plugin_Handler_Static$",
+        "weight": 10
+      }
+    ]
   }
 }
