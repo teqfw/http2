@@ -18,7 +18,7 @@ const NS = 'TeqFw_Http2_Cli_Start';
  * @memberOf TeqFw_Http2_Cli_Start
  */
 function Factory(spec) {
-    // PARSE INPUT & DEFINE WORKING VARS
+    // EXTRACT DEPS
     /** @type {TeqFw_Http2_Defaults} */
     const DEF = spec['TeqFw_Http2_Defaults$'];   // instance singleton
     /** @type {TeqFw_Core_App_Launcher.Bootstrap} */
@@ -60,10 +60,8 @@ function Factory(spec) {
         }
     };
 
-    // MAIN FUNCTIONALITY
-    Object.defineProperty(action, 'name', {value: `${NS}.${action.name}`});
-
     // COMPOSE RESULT
+    Object.defineProperty(action, 'name', {value: `${NS}.${action.name}`});
     const result = new Command();
     result.ns = DEF.BACK_REALM;
     result.name = 'start';
@@ -72,8 +70,6 @@ function Factory(spec) {
     return result;
 }
 
-// MODULE'S FUNCTIONALITY
-Object.defineProperty(Factory, 'name', {value: `${NS}.${Factory.name}`});
-
 // MODULE'S EXPORT
+Object.defineProperty(Factory, 'name', {value: `${NS}.${Factory.name}`});
 export default Factory;
