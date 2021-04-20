@@ -12,7 +12,7 @@ export default class TeqFw_Http2_Api_Service_Factory {
         // DEFINE THIS INSTANCE METHODS (NOT IN PROTOTYPE)
         /**
          * Parse input data and compose API request data object.
-         * @returns {TeqFw_Http2_Api_Service_Factory.parse}
+         * @returns {function(TeqFw_Http2_Back_Server_Stream_Context): Object}
          */
         this.createInputParser = function () {
             // DEFINE INNER FUNCTIONS
@@ -25,6 +25,7 @@ export default class TeqFw_Http2_Api_Service_Factory {
              * @interface
              */
             async function parse(context) {
+                return {};
             }
 
             // COMPOSE RESULT
