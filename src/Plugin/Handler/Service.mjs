@@ -81,7 +81,6 @@ async function Factory(spec) {
      * @param {TeqFw_Http2_Back_Server_Stream_Context} context
      * @returns {Promise<TeqFw_Http2_Back_Server_Stream_Report>}
      * @memberOf TeqFw_Http2_Plugin_Handler_Service
-     * @implements {TeqFw_Http2_Back_Server_Stream.handler}
      */
     async function handleHttp2Request(context) {
         // MAIN FUNCTIONALITY
@@ -139,42 +138,72 @@ async function Factory(spec) {
     /**
      * Compose static routes map for plugins.
      *
+     * @param {TeqFw_Di_Container} container
      * @param {String} mainClassName context name for DI container to get plugin initializers.
      * @returns {Promise<void>}
      * @memberOf TeqFw_Http2_Plugin_Handler_Service.createHandler
      */
-    async function initRoutes(mainClassName) {
+    async function initRoutes(container, mainClassName) {
+        // DEFINE INNER FUNCTIONS
+        /**
+         * Extract service related data from plugin init function (old style).
+         *
+         * @param {TeqFw_Core_App_Plugin_Scan_Item} plugin
+         * @param {TeqFw_Di_Container} container
+         * @param {String} mainClassName
+         * @return {Promise<{realm: String, services: String[]}>}
+         */
+        async function processPluginInitFunc(plugin, container, mainClassName) {
+            let realm, services = [];
+            if (plugin.initClass) {
+                /** @type {TeqFw_Core_App_Plugin_Init_Base} */
+                const initObj = await container.get(plugin.initClass, mainClassName);
+                if (initObj && (typeof initObj.getServicesList === 'function')) {
+                    realm = initObj.getServicesRealm();
+                    services = initObj.getServicesList();
+                }
+            }
+            return {realm, services};
+        }
+
+        // MAIN FUNCTIONALITY
         logger.debug('Map plugins API services:');
         const items = regPlugin.items();
         for (const item of items) {
-            if (item.initClass) {
-                /** @type {TeqFw_Core_App_Plugin_Init_Base} */
-                const plugin = await container.get(item.initClass, mainClassName);
-                if (plugin && (typeof plugin.getServicesList === 'function')) {
-                    const realm = plugin.getServicesRealm();
-                    const prefix = $path.join('/', realm);
-                    const map = plugin.getServicesList();
-                    for (const one of map) {
-                        /** @type {TeqFw_Http2_Api_Service_Factory} */
-                        const factory = await container.get(one, mainClassName);
-                        const tail = factory.getRoute();
-                        const route = $path.join(prefix, tail);
-                        logger.debug(`    ${route} => ${one}`);
-                        router[route] = {};
-                        if (typeof factory.createInputParser === 'function') {
-                            /** @type {TeqFw_Http2_Api_Service_Factory.parse} */
-                            router[route][PARSE] = factory.createInputParser();
-                        }
-                        /** @type {TeqFw_Http2_Api_Service_Factory.service} */
-                        router[route][SERVICE] = factory.createService();
+            const services = [];
+            // get services data from plugin init object
+            const {
+                realm: realmInit,
+                services: servicesInit
+            } = await processPluginInitFunc(item, container, mainClassName);
+            const realmDesc = item.teqfw?.http2?.realm;
+            const servicesDesc = item.teqfw?.http2?.services;
+            // concatenate data from init func and from teqfw descriptor
+            const realm = realmDesc ?? realmInit;
+            services.push(...servicesInit);
+            if (Array.isArray(servicesDesc)) services.push(...servicesDesc);
+            if (realm && services.length) {
+                const prefix = $path.join('/', realm);
+                for (const one of services) {
+                    /** @type {TeqFw_Http2_Api_Service_Factory} */
+                    const factory = await container.get(one, mainClassName);
+                    const tail = factory.getRoute();
+                    const route = $path.join(prefix, tail);
+                    logger.debug(`    ${route} => ${one}`);
+                    router[route] = {};
+                    if (typeof factory.createInputParser === 'function') {
+                        /** @type {TeqFw_Http2_Api_Service_Factory.parse} */
+                        router[route][PARSE] = factory.createInputParser();
                     }
+                    /** @type {TeqFw_Http2_Api_Service_Factory.service} */
+                    router[route][SERVICE] = factory.createService();
                 }
             }
         }
     }
 
     // MAIN FUNCTIONALITY
-    await initRoutes(NS);
+    await initRoutes(container, NS);
     const name = `${NS}.${handleHttp2Request.name}`;
     logger.debug(`HTTP2 requests handler '${name}' is created.`);
 

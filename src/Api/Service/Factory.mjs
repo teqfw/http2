@@ -35,7 +35,7 @@ export default class TeqFw_Http2_Api_Service_Factory {
         };
         /**
          * Factory to create service (handler to process HTTP API request).
-         * @returns {TeqFw_Http2_Api_Service_Factory.service}
+         * @returns {function(TeqFw_Http2_Plugin_Handler_Service.Context): TeqFw_Http2_Plugin_Handler_Service.Result}
          */
         this.createService = function () {
             // DEFINE INNER FUNCTIONS

@@ -46,7 +46,18 @@ class Handler {
 }
 
 class TeqFw_Http2_Api_Plugin_Desc {
+    /** @type {Handler[]} */
     handlers;
+    /**
+     * Services realm (see DEF.BACK_REALM in plugins)
+     * @type {String}
+     */
+    realm;
+    /**
+     * List of plugin's services (DI IDs).
+     * @type {String[]}
+     */
+    services;
 }
 
 Object.freeze(TeqFw_Http2_Api_Plugin_Desc);
