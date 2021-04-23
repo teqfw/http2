@@ -33,8 +33,8 @@ async function Factory(spec) {
     const logger = spec['TeqFw_Core_App_Logger$']; // instance singleton
     /** @type {TeqFw_Core_App_Plugin_Registry} */
     const regPlugins = spec['TeqFw_Core_App_Plugin_Registry$']; // instance singleton
-    /** @type {TeqFw_Http2_Back_Realm_Registry} */
-    const regRealms = spec['TeqFw_Http2_Back_Realm_Registry$']; // instance singleton
+    /** @type {TeqFw_Http2_Back_Model_Realm_Registry} */
+    const regRealms = spec['TeqFw_Http2_Back_Model_Realm_Registry$']; // instance singleton
     /** @type {typeof TeqFw_Http2_Back_Server_Stream_Report} */
     const Report = spec['TeqFw_Http2_Back_Server_Stream#Report']; // class
 

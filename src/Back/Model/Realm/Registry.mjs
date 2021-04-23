@@ -1,17 +1,18 @@
 /**
  * Registry for HTTP/2 server frontend realms.
  *
- * @namespace TeqFw_Http2_Back_Realm_Registry
+ * @namespace TeqFw_Http2_Back_Model_Realm_Registry
  */
 // MODULE'S VARS
-// const NS = 'TeqFw_Http2_Back_Realm_Registry';
+const NS = 'TeqFw_Http2_Back_Model_Realm_Registry';
 
 // MODULE'S CLASSES
 /**
  * Structure to represent address (URL).
  * General form: https://hostname.com/root/lang/realm/area/route/to/resource
+ * @memberOf TeqFw_Http2_Back_Model_Realm_Registry
  */
-class TeqFw_Http2_Back_Realm_Registry_Address {
+class Address {
     // DEFINE PROPS
     area;
     lang;
@@ -23,12 +24,10 @@ class TeqFw_Http2_Back_Realm_Registry_Address {
 /**
  * Registry for HTTP/2 server realms.
  */
-class TeqFw_Http2_Back_Realm_Registry {
-    // DEFINE PROPS
+class TeqFw_Http2_Back_Model_Realm_Registry {
 
-    // CONSTRUCTOR
     constructor(spec) {
-        // PARSE INPUT, INIT PROPS, DEFINE WORKING VARS
+        // EXTRACT DEPS
         /** @type {TeqFw_Core_App_Defaults} */
         const DEF = spec['TeqFw_Core_App_Defaults$']; // instance singleton
         /** @type {TeqFw_Core_App_Plugin_Registry} */
@@ -42,10 +41,10 @@ class TeqFw_Http2_Back_Realm_Registry {
         /**
          * Parser to decompose URL path to the parts.
          * @param {String} path (/root/lang/realm/area/route/to/resource)
-         * @returns {TeqFw_Http2_Back_Realm_Registry_Address}
+         * @returns {TeqFw_Http2_Back_Model_Realm_Registry.Address}
          */
         this.parseAddress = function (path) {
-            const result = new TeqFw_Http2_Back_Realm_Registry_Address();
+            const result = new Address();
             // define root path (TODO: add 'root' config to app or remove 'root' from address)
             // define lang (TODO: add 'lang' config to app or remove 'lang' from address)
             // define realm
@@ -86,6 +85,6 @@ class TeqFw_Http2_Back_Realm_Registry {
 
 // MODULE'S EXPORT
 export {
-    TeqFw_Http2_Back_Realm_Registry as default,
-    TeqFw_Http2_Back_Realm_Registry_Address as Address,
+    TeqFw_Http2_Back_Model_Realm_Registry as default,
+    Address,
 };

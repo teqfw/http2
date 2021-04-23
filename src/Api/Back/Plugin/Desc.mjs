@@ -2,10 +2,10 @@
  * Data-object to represent plugin descriptor structure that is related to 'http2' node:
  */
 // MODULE'S VARS
-const NS = 'TeqFw_Http2_Api_Plugin_Desc';
+const NS = 'TeqFw_Http2_Api_Back_Plugin_Desc';
 
 /**
- * @memberOf TeqFw_Http2_Api_Plugin_Desc
+ * @memberOf TeqFw_Http2_Api_Back_Plugin_Desc
  */
 class Handler {
     /**
@@ -45,7 +45,7 @@ class Handler {
     weight;
 }
 
-class TeqFw_Http2_Api_Plugin_Desc {
+class TeqFw_Http2_Api_Back_Plugin_Desc {
     /** @type {Handler[]} */
     handlers;
     /**
@@ -60,10 +60,10 @@ class TeqFw_Http2_Api_Plugin_Desc {
     services;
 }
 
-Object.freeze(TeqFw_Http2_Api_Plugin_Desc);
+Object.freeze(TeqFw_Http2_Api_Back_Plugin_Desc);
 Object.defineProperty(Handler, 'name', {value: `${NS}.${Handler.name}`});
 
 export {
-    TeqFw_Http2_Api_Plugin_Desc as default,
+    TeqFw_Http2_Api_Back_Plugin_Desc as default,
     Handler
 };

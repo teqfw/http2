@@ -64,8 +64,8 @@ async function Factory(spec) {
     const logger = spec['TeqFw_Core_App_Logger$'];  // instance singleton
     /** @type {TeqFw_Core_App_Plugin_Registry} */
     const regPlugin = spec['TeqFw_Core_App_Plugin_Registry$'];   // instance singleton
-    /** @type {TeqFw_Http2_Back_Realm_Registry} */
-    const regRealms = spec['TeqFw_Http2_Back_Realm_Registry$']; // instance singleton
+    /** @type {TeqFw_Http2_Back_Model_Realm_Registry} */
+    const regRealms = spec['TeqFw_Http2_Back_Model_Realm_Registry$']; // instance singleton
     /** @type {typeof TeqFw_Http2_Back_Server_Stream_Report} */
     const Report = spec['TeqFw_Http2_Back_Server_Stream#Report'];   // class
 
@@ -185,17 +185,17 @@ async function Factory(spec) {
             if (realm && services.length) {
                 const prefix = $path.join('/', realm);
                 for (const one of services) {
-                    /** @type {TeqFw_Http2_Api_Service_Factory} */
+                    /** @type {TeqFw_Http2_Api_Back_Service_Factory} */
                     const factory = await container.get(one, mainClassName);
                     const tail = factory.getRoute();
                     const route = $path.join(prefix, tail);
                     logger.debug(`    ${route} => ${one}`);
                     router[route] = {};
                     if (typeof factory.createInputParser === 'function') {
-                        /** @type {TeqFw_Http2_Api_Service_Factory.parse} */
+                        /** @type {TeqFw_Http2_Api_Back_Service_Factory.parse} */
                         router[route][PARSE] = factory.createInputParser();
                     }
-                    /** @type {TeqFw_Http2_Api_Service_Factory.service} */
+                    /** @type {TeqFw_Http2_Api_Back_Service_Factory.service} */
                     router[route][SERVICE] = factory.createService();
                 }
             }

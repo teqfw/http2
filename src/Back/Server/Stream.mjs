@@ -74,7 +74,7 @@ class TeqFw_Http2_Back_Server_Stream {
         const idParser = spec['TeqFw_Di_IdParser$']; // instance singleton
         /** @type {TeqFw_Core_App_Plugin_Registry} */
         const registry = spec['TeqFw_Core_App_Plugin_Registry$']; // instance singleton
-        const {Handler: DDesc} = spec['TeqFw_Http2_Api_Plugin_Desc']; // ES6 module destructing
+        const {Handler: DDesc} = spec['TeqFw_Http2_Api_Back_Plugin_Desc']; // ES6 module destructing
 
         // PARSE INPUT & DEFINE WORKING VARS
         /** @type {Array.<function>} */
@@ -237,7 +237,7 @@ class TeqFw_Http2_Back_Server_Stream {
                     if (Array.isArray(plugin.teqfw?.http2?.handlers)) {
                         const handlers = plugin.teqfw.http2.handlers;
                         for (const one of handlers) {
-                            /** @type {TeqFw_Http2_Api_Plugin_Desc.Handler} */
+                            /** @type {TeqFw_Http2_Api_Back_Plugin_Desc.Handler} */
                             const data = Object.assign(new DDesc(), one);
                             const hndl = await container.get(data.depId);
                             const parts = idParser.parse(data.depId);
