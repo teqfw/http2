@@ -40,17 +40,18 @@ function Factory(spec) {
      */
     const action = async function () {
         logger.info('Starting HTTP/2 server.');
-        /** @type {TeqFw_Http2_Back_Server} */
-        const server = await container.get('TeqFw_Http2_Back_Server$', NS);
-        await server.init();
-
-        // collect startup configuration then compose path to PID file
-        const portCfg = config.get('local/server/port');
-        const port = portCfg || DEF.SERVER_DEFAULT_PORT;
-        const pid = process.pid.toString();
-        const pidPath = $path.join(bootCfg.root, DEF.PID_FILE_NAME);
-        // write PID to file then start the server
         try {
+            /** @type {TeqFw_Http2_Back_Server} */
+            const server = await container.get('TeqFw_Http2_Back_Server$', NS);
+            await server.init();
+
+            // collect startup configuration then compose path to PID file
+            const portCfg = config.get('local/server/port');
+            const port = portCfg || DEF.SERVER_DEFAULT_PORT;
+            const pid = process.pid.toString();
+            const pidPath = $path.join(bootCfg.root, DEF.PID_FILE_NAME);
+            // write PID to file then start the server
+
             $fs.writeFileSync(pidPath, pid);
             // PID is wrote => start the server
             await server.listen(port);
