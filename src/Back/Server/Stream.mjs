@@ -196,6 +196,7 @@ class TeqFw_Http2_Back_Server_Stream {
                     for (const handler of handlers) {
                         /** @type {TeqFw_Http2_Back_Server_Stream_Report} */
                         const report = await handler(context);
+                        // cookie should be merged in headers, not rewritten
                         Object.assign(result.headers, report.headers);  // add additional headers to results
                         Object.assign(context.shared, report.sharedAdditional); // add shared objects to context
                         if (report.output) result.output = report.output;
