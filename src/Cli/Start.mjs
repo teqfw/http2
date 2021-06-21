@@ -20,15 +20,15 @@ const NS = 'TeqFw_Http2_Cli_Start';
 function Factory(spec) {
     // EXTRACT DEPS
     /** @type {TeqFw_Http2_Defaults} */
-    const DEF = spec['TeqFw_Http2_Defaults$'];   // instance singleton
+    const DEF = spec['TeqFw_Http2_Defaults$'];   // singleton
     /** @type {TeqFw_Core_App_Launcher.Bootstrap} */
-    const bootCfg = spec[DEF.MOD_CORE.DI_BOOTSTRAP]; // named singleton
+    const bootCfg = spec[DEF.MOD_CORE.DI_BOOTSTRAP]; // singleton
     /** @type {TeqFw_Di_Container} */
-    const container = spec[DEF.MOD_CORE.DI_CONTAINER];  // instance singleton
+    const container = spec[DEF.MOD_CORE.DI_CONTAINER];  // singleton
     /** @type {TeqFw_Core_App_Config} */
-    const config = spec['TeqFw_Core_App_Config$'];  // instance singleton
+    const config = spec['TeqFw_Core_App_Config$'];  // singleton
     /** @type {TeqFw_Core_App_Logger} */
-    const logger = spec['TeqFw_Core_App_Logger$'];  // instance singleton
+    const logger = spec['TeqFw_Core_App_Logger$'];  // singleton
     /** @type {typeof TeqFw_Core_App_Cli_Command_Data} */
     const Command = spec['TeqFw_Core_App_Cli_Command#Data'];    // class
 

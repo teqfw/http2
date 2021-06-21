@@ -6,7 +6,7 @@ export default class TeqFw_Http2_Plugin_Init {
 
     constructor(spec) {
         /** @type {TeqFw_Http2_Defaults} */
-        const DEF = spec['TeqFw_Http2_Defaults$'];    // instance singleton
+        const DEF = spec['TeqFw_Http2_Defaults$'];    // singleton
 
         this.getCommands = function () {
             return [

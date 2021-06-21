@@ -65,15 +65,15 @@ class TeqFw_Http2_Back_Server_Stream {
     constructor(spec) {
         // CONSTRUCTOR INJECTED DEPS
         /** @type {TeqFw_Core_App_Defaults} */
-        const DEF = spec['TeqFw_Core_App_Defaults$']; // instance singleton
+        const DEF = spec['TeqFw_Core_App_Defaults$']; // singleton
         /** @type {TeqFw_Di_Container} */
-        const container = spec[DEF.DI_CONTAINER]; // named singleton
+        const container = spec[DEF.DI_CONTAINER]; // singleton
         /** @type {TeqFw_Core_App_Logger} */
-        const logger = spec['TeqFw_Core_App_Logger$']; // instance singleton
+        const logger = spec['TeqFw_Core_App_Logger$']; // singleton
         /** @type {TeqFw_Di_IdParser} */
-        const idParser = spec['TeqFw_Di_IdParser$']; // instance singleton
+        const idParser = spec['TeqFw_Di_IdParser$']; // singleton
         /** @type {TeqFw_Core_App_Plugin_Registry} */
-        const registry = spec['TeqFw_Core_App_Plugin_Registry$']; // instance singleton
+        const registry = spec['TeqFw_Core_App_Plugin_Registry$']; // singleton
         const {Handler: DDesc} = spec['TeqFw_Http2_Api_Back_Plugin_Desc']; // ES6 module destructing
 
         // PARSE INPUT & DEFINE WORKING VARS

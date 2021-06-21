@@ -26,15 +26,15 @@ async function Factory(spec) {
     /** @type {TeqFw_Core_App_Defaults} */
     const DEF = spec['TeqFw_Core_App_Defaults$'];
     /** @type {TeqFw_Di_Container} */
-    const container = spec[DEF.DI_CONTAINER]; // named singleton
+    const container = spec[DEF.DI_CONTAINER]; // singleton
     /** @type {TeqFw_Core_App_Config} */
-    const config = spec['TeqFw_Core_App_Config$']; // instance singleton
+    const config = spec['TeqFw_Core_App_Config$']; // singleton
     /** @type {TeqFw_Core_App_Logger} */
-    const logger = spec['TeqFw_Core_App_Logger$']; // instance singleton
+    const logger = spec['TeqFw_Core_App_Logger$']; // singleton
     /** @type {TeqFw_Core_App_Plugin_Registry} */
-    const regPlugins = spec['TeqFw_Core_App_Plugin_Registry$']; // instance singleton
+    const regPlugins = spec['TeqFw_Core_App_Plugin_Registry$']; // singleton
     /** @type {TeqFw_Http2_Back_Model_Realm_Registry} */
-    const regRealms = spec['TeqFw_Http2_Back_Model_Realm_Registry$']; // instance singleton
+    const regRealms = spec['TeqFw_Http2_Back_Model_Realm_Registry$']; // singleton
     /** @type {typeof TeqFw_Http2_Back_Server_Stream_Report} */
     const Report = spec['TeqFw_Http2_Back_Server_Stream#Report']; // class
 

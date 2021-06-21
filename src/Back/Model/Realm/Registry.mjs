@@ -29,9 +29,9 @@ class TeqFw_Http2_Back_Model_Realm_Registry {
     constructor(spec) {
         // EXTRACT DEPS
         /** @type {TeqFw_Core_App_Defaults} */
-        const DEF = spec['TeqFw_Core_App_Defaults$']; // instance singleton
+        const DEF = spec['TeqFw_Core_App_Defaults$']; // singleton
         /** @type {TeqFw_Core_App_Plugin_Registry} */
-        const regPlugins = spec['TeqFw_Core_App_Plugin_Registry$'];   // instance singleton
+        const regPlugins = spec['TeqFw_Core_App_Plugin_Registry$'];   // singleton
         /** @type {String[]} internal store for realms */
         let registry = [];
 
