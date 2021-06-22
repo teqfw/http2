@@ -1,5 +1,5 @@
 /**
- * Registry for HTTP/2 server frontend realms.
+ * Registry for HTTP/2 server frontend areas.
  *
  * @namespace TeqFw_Http2_Back_Model_Realm_Registry
  */
@@ -22,7 +22,7 @@ class Address {
 }
 
 /**
- * Registry for HTTP/2 server realms.
+ * Registry for HTTP/2 server areas.
  */
 class TeqFw_Http2_Back_Model_Realm_Registry {
 
@@ -32,7 +32,7 @@ class TeqFw_Http2_Back_Model_Realm_Registry {
         const DEF = spec['TeqFw_Core_App_Defaults$']; // singleton
         /** @type {TeqFw_Core_App_Plugin_Registry} */
         const regPlugins = spec['TeqFw_Core_App_Plugin_Registry$'];   // singleton
-        /** @type {String[]} internal store for realms */
+        /** @type {String[]} internal store for areas */
         let registry = [];
 
         // DEFINE INNER FUNCTIONS
@@ -75,9 +75,9 @@ class TeqFw_Http2_Back_Model_Realm_Registry {
         /** @type {TeqFw_Core_App_Plugin_Scan_Item[]} */
         const items = regPlugins.items();
         for (const item of items) {
-            const realms = item?.teqfw?.http2?.realms;
-            if (Array.isArray(realms)) {
-                const allied = registry.concat(realms);
+            const areas = item?.teqfw?.http2?.areas;
+            if (Array.isArray(areas)) {
+                const allied = registry.concat(areas);
                 registry = [...new Set(allied)];
             }
         }
