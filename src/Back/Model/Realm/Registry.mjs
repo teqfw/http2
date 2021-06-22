@@ -64,6 +64,7 @@ class TeqFw_Http2_Back_Model_Realm_Registry {
                 result.area = DEF.AREA_WEB;
             }
             if (result.area !== undefined) {
+                // remove area from the path
                 path = path.replace(`/${result.area}`, '');
             }
             result.route = path;

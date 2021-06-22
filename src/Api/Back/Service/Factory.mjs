@@ -13,6 +13,7 @@ export default class TeqFw_Http2_Api_Back_Service_Factory {
         /**
          * Parse input data and compose API request data object.
          * @returns {function(TeqFw_Http2_Back_Server_Stream_Context): Object}
+         * @deprecated use 'getServiceDtoId' instead
          */
         this.createInputParser = function () {
             // DEFINE INNER FUNCTIONS
@@ -66,7 +67,38 @@ export default class TeqFw_Http2_Api_Back_Service_Factory {
          * @returns {String}
          */
         this.getRoute = function () {
-            return DEF.API_LOAD_NS; // place relative route to DEF object
+            return DEF.API_LOAD_NS; // place relative route to DEF object to account all routes in one place
         };
+
+        this.getServiceDtoId = function () {
+            return 'Fl32_Teq_User_Shared_Service_Route_ChangePassword';
+        }
     }
+}
+
+/**
+ * Service function to handle HTTP API requests.
+ *
+ * @param {TeqFw_Http2_Plugin_Handler_Service.Context} apiCtx
+ * @returns {Promise<TeqFw_Http2_Plugin_Handler_Service.Result>}
+ * @interface
+ */
+async function iService(apiCtx) {}
+
+class IServiceFactory {
+    /**
+     * @returns {string} Dependency ID for DTO with Request, Response structures and with Factory to create new
+     * instances of requests and responses.
+     */
+    getDtoId() {}
+
+    /**
+     * @returns {string} route to service relatively to plugin realm.
+     */
+    getRoute() {}
+
+    /**
+     * @returns iService
+     */
+    getService() {}
 }
