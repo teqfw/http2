@@ -27,8 +27,8 @@ async function Factory(spec) {
     const DEF = spec['TeqFw_Core_App_Defaults$'];
     /** @type {TeqFw_Di_Container} */
     const container = spec[DEF.DI_CONTAINER]; // singleton
-    /** @type {TeqFw_Core_App_Config} */
-    const config = spec['TeqFw_Core_App_Config$']; // singleton
+    /** @type {TeqFw_Core_App_Back_Config} */
+    const config = spec['TeqFw_Core_App_Back_Config$']; // singleton
     /** @type {TeqFw_Core_App_Logger} */
     const logger = spec['TeqFw_Core_App_Logger$']; // singleton
     /** @type {TeqFw_Core_App_Plugin_Registry} */
@@ -67,17 +67,17 @@ async function Factory(spec) {
             function normalize(path) {
                 let result = path;
                 const addr = regRealms.parseAddress(path);
-                if (addr.area !== undefined) {
+                if (addr.zone !== undefined) {
+                    result = `/${addr.zone}${addr.route}`;
+                } else if (addr.area !== undefined) {
                     result = `/${addr.area}${addr.route}`;
-                } else if (addr.realm !== undefined) {
-                    result = `/${addr.realm}${addr.route}`;
                 } else {
                     result = `${addr.route}`;
                 }
                 // add 'index.html' for 'web' area
                 if (
-                    (addr.area !== DEF.AREA_API) &&
-                    (addr.area !== DEF.AREA_SRC) &&
+                    (addr.zone !== DEF.AREA_API) &&
+                    (addr.zone !== DEF.AREA_SRC) &&
                     (result.slice(-1) === '/')
                 ) {
                     result += INDEX_NAME;

@@ -13,7 +13,7 @@ const NS = 'TeqFw_Http2_Cli_Stop';
  * Factory to create CLI command to stop HTTP2 server.
  *
  * @param {TeqFw_Di_SpecProxy} spec
- * @returns {TeqFw_Core_App_Cli_Command_Data}
+ * @returns {TeqFw_Core_App_Back_Cli_Command_Data}
  * @constructor
  * @memberOf TeqFw_Http2_Cli_Stop
  */
@@ -21,10 +21,10 @@ function Factory(spec) {
     // PARSE INPUT & DEFINE WORKING VARS
     /** @type {TeqFw_Http2_Defaults} */
     const DEF = spec['TeqFw_Http2_Defaults$'];   // singleton
-    /** @type {TeqFw_Core_App_Launcher.Bootstrap} */
+    /** @type {TeqFw_Core_App_Back_App.Bootstrap} */
     const bootCfg = spec[DEF.MOD_CORE.DI_BOOTSTRAP]; // singleton
-    /** @type {typeof TeqFw_Core_App_Cli_Command_Data} */
-    const Command = spec['TeqFw_Core_App_Cli_Command#Data'];    // class
+    /** @type {typeof TeqFw_Core_App_Back_Cli_Command_Data} */
+    const Command = spec['TeqFw_Core_App_Back_Cli_Command#Data'];    // class
 
     // DEFINE INNER FUNCTIONS
     /**

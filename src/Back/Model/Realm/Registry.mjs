@@ -1,5 +1,5 @@
 /**
- * Registry for HTTP/2 server frontend areas.
+ * Registry for HTTP/2 server frontend areas ('pub' or 'admin').
  *
  * @namespace TeqFw_Http2_Back_Model_Realm_Registry
  */
@@ -9,16 +9,20 @@ const NS = 'TeqFw_Http2_Back_Model_Realm_Registry';
 // MODULE'S CLASSES
 /**
  * Structure to represent address (URL).
- * General form: https://hostname.com/root/lang/realm/area/route/to/resource
+ * General form: https://hostname.com/root/lang/area/zone/route/to/resource
  * @memberOf TeqFw_Http2_Back_Model_Realm_Registry
  */
 class Address {
-    // DEFINE PROPS
+    /** @type {string} frontend area ('admin' or 'pub') */
     area;
+    /** @type {string} language code (TODO: reserved) */
     lang;
-    realm;
+    /** @type {string} root folder (TODO: reserved) */
     root;
+    /** @type {string} route to the resource (static or service) */
     route;
+    /** @type {string} HTTP2 handlers zone ('api', 'src' or 'web') */
+    zone;
 }
 
 /**
@@ -35,8 +39,6 @@ class TeqFw_Http2_Back_Model_Realm_Registry {
         /** @type {String[]} internal store for areas */
         let registry = [];
 
-        // DEFINE INNER FUNCTIONS
-
         // DEFINE INSTANCE METHODS
         /**
          * Parser to decompose URL path to the parts.
@@ -47,25 +49,25 @@ class TeqFw_Http2_Back_Model_Realm_Registry {
             const result = new Address();
             // define root path (TODO: add 'root' config to app or remove 'root' from address)
             // define lang (TODO: add 'lang' config to app or remove 'lang' from address)
-            // define realm
+            // define area (pub, admin)
             for (const one of registry) {
                 if (path.startsWith(`/${one}`)) {
-                    result.realm = one;
+                    result.area = one;
                     path = path.replace(`/${one}`, '');
                     break; // one only realm is allowed in URL
                 }
             }
-            // define area
+            // define zone
             if (path.startsWith(`/${DEF.AREA_API}`)) {
-                result.area = DEF.AREA_API;
+                result.zone = DEF.AREA_API;
             } else if (path.startsWith(`/${DEF.AREA_SRC}`)) {
-                result.area = DEF.AREA_SRC;
+                result.zone = DEF.AREA_SRC;
             } else if (path.startsWith(`/${DEF.AREA_WEB}`)) {
-                result.area = DEF.AREA_WEB;
+                result.zone = DEF.AREA_WEB;
             }
-            if (result.area !== undefined) {
+            if (result.zone !== undefined) {
                 // remove area from the path
-                path = path.replace(`/${result.area}`, '');
+                path = path.replace(`/${result.zone}`, '');
             }
             result.route = path;
             return result;
