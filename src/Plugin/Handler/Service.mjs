@@ -60,10 +60,10 @@ async function Factory(spec) {
     const DEF = spec['TeqFw_Http2_Defaults$'];
     /** @type {TeqFw_Di_Container} */
     const container = spec[DEF.MOD_CORE.DI_CONTAINER];   // singleton
-    /** @type {TeqFw_Core_App_Logger} */
-    const logger = spec['TeqFw_Core_App_Logger$'];  // singleton
-    /** @type {TeqFw_Core_App_Plugin_Registry} */
-    const regPlugin = spec['TeqFw_Core_App_Plugin_Registry$'];   // singleton
+    /** @type {TeqFw_Core_Logger} */
+    const logger = spec['TeqFw_Core_Logger$'];  // singleton
+    /** @type {TeqFw_Core_Plugin_Registry} */
+    const regPlugin = spec['TeqFw_Core_Plugin_Registry$'];   // singleton
     /** @type {TeqFw_Http2_Back_Model_Realm_Registry} */
     const regRealms = spec['TeqFw_Http2_Back_Model_Realm_Registry$']; // singleton
     /** @type {typeof TeqFw_Http2_Back_Server_Stream_Report} */
@@ -148,7 +148,7 @@ async function Factory(spec) {
         /**
          * Extract service related data from plugin init function (old style).
          *
-         * @param {TeqFw_Core_App_Plugin_Scan_Item} plugin
+         * @param {TeqFw_Core_Plugin_Scan_Item} plugin
          * @param {TeqFw_Di_Container} container
          * @param {String} mainClassName
          * @return {Promise<{realm: String, services: String[]}>}
@@ -156,7 +156,7 @@ async function Factory(spec) {
         async function processPluginInitFunc(plugin, container, mainClassName) {
             let realm, services = [];
             if (plugin.initClass) {
-                /** @type {TeqFw_Core_App_Plugin_Init_Base} */
+                /** @type {TeqFw_Core_Plugin_Init_Base} */
                 const initObj = await container.get(plugin.initClass, mainClassName);
                 if (initObj && (typeof initObj.getServicesList === 'function')) {
                     realm = initObj.getServicesRealm();

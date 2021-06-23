@@ -34,8 +34,8 @@ class TeqFw_Http2_Back_Model_Realm_Registry {
         // EXTRACT DEPS
         /** @type {TeqFw_Http2_Defaults} */
         const DEF = spec['TeqFw_Http2_Defaults$']; // singleton
-        /** @type {TeqFw_Core_App_Plugin_Registry} */
-        const regPlugins = spec['TeqFw_Core_App_Plugin_Registry$'];   // singleton
+        /** @type {TeqFw_Core_Plugin_Registry} */
+        const regPlugins = spec['TeqFw_Core_Plugin_Registry$'];   // singleton
         /** @type {String[]} internal store for areas */
         let registry = [];
 
@@ -74,7 +74,7 @@ class TeqFw_Http2_Back_Model_Realm_Registry {
         };
 
         // MAIN FUNCTIONALITY
-        /** @type {TeqFw_Core_App_Plugin_Scan_Item[]} */
+        /** @type {TeqFw_Core_Plugin_Scan_Item[]} */
         const items = regPlugins.items();
         for (const item of items) {
             const areas = item?.teqfw?.http2?.areas;

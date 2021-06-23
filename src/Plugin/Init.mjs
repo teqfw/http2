@@ -1,6 +1,6 @@
 /**
  * Class to integrate plugin into TeqFW application.
- * @extends TeqFw_Core_App_Plugin_Init_Base
+ * @extends TeqFw_Core_Plugin_Init_Base
  */
 export default class TeqFw_Http2_Plugin_Init {
 

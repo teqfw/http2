@@ -27,12 +27,12 @@ async function Factory(spec) {
     const DEF = spec['TeqFw_Http2_Defaults$']; // singleton
     /** @type {TeqFw_Di_Container} */
     const container = spec[DEF.MOD_CORE.DI_CONTAINER]; // singleton
-    /** @type {TeqFw_Core_App_Back_Config} */
-    const config = spec['TeqFw_Core_App_Back_Config$']; // singleton
-    /** @type {TeqFw_Core_App_Logger} */
-    const logger = spec['TeqFw_Core_App_Logger$']; // singleton
-    /** @type {TeqFw_Core_App_Plugin_Registry} */
-    const regPlugins = spec['TeqFw_Core_App_Plugin_Registry$']; // singleton
+    /** @type {TeqFw_Core_Back_Config} */
+    const config = spec['TeqFw_Core_Back_Config$']; // singleton
+    /** @type {TeqFw_Core_Logger} */
+    const logger = spec['TeqFw_Core_Logger$']; // singleton
+    /** @type {TeqFw_Core_Plugin_Registry} */
+    const regPlugins = spec['TeqFw_Core_Plugin_Registry$']; // singleton
     /** @type {TeqFw_Http2_Back_Model_Realm_Registry} */
     const regRealms = spec['TeqFw_Http2_Back_Model_Realm_Registry$']; // singleton
     /** @type {typeof TeqFw_Http2_Back_Server_Stream_Report} */
@@ -148,7 +148,7 @@ async function Factory(spec) {
         logger.debug(`    ${statUrl} => ${statPath}`);
         // map additional resources
         if (item.initClass) {
-            /** @type {TeqFw_Core_App_Plugin_Init} */
+            /** @type {TeqFw_Core_Plugin_Init} */
             const plugin = await container.get(item.initClass, NS);
             if (plugin && (typeof plugin.getHttpStaticMaps === 'function')) {
                 const map = plugin.getHttpStaticMaps();

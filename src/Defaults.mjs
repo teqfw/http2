@@ -17,12 +17,12 @@ export default class TeqFw_Http2_Defaults {
     ZONE_SRC = 'src';    // URL prefix for ES6/JS sources: https://.../area/src/...
     ZONE_WEB = 'web';    // URL prefix for static files: https://.../area/web/...
 
-    /** @type {TeqFw_Core_App_Defaults} */
+    /** @type {TeqFw_Core_Defaults} */
     MOD_CORE;
 
     constructor(spec) {
-        /** @type {TeqFw_Core_App_Defaults} */
-        this.MOD_CORE = spec['TeqFw_Core_App_Defaults$'];    // pin 'core' defaults
+        /** @type {TeqFw_Core_Defaults} */
+        this.MOD_CORE = spec['TeqFw_Core_Defaults$'];    // pin 'core' defaults
         Object.freeze(this);
     }
 }
