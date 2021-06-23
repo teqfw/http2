@@ -26,7 +26,7 @@ async function Factory(spec) {
     /** @type {TeqFw_Http2_Defaults} */
     const DEF = spec['TeqFw_Http2_Defaults$']; // singleton
     /** @type {TeqFw_Di_Container} */
-    const container = spec[DEF.MOD_CORE.DI_CONTAINER]; // singleton
+    const container = spec['TeqFw_Di_Container$']; // singleton
     /** @type {TeqFw_Core_Back_Config} */
     const config = spec['TeqFw_Core_Back_Config$']; // singleton
     /** @type {TeqFw_Core_Logger} */

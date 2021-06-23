@@ -7,7 +7,7 @@ export default function TeqFw_Http2_Front_Gate_Load_Config(spec) {
     /** @type {TeqFw_Core_Front_Data_Config} */
     const config = spec['TeqFw_Core_Front_Data_Config$']; // singleton
     /** @type {TeqFw_Di_Container} */
-    const container = spec[DEF.DI_CONTAINER];  // singleton
+    const container = spec['TeqFw_Di_Container$'];  // singleton
     /** @type {typeof TeqFw_Core_Shared_Service_Route_Load_Config_Response} */
     const Response = spec['TeqFw_Core_Shared_Service_Route_Load_Config#Response']; // class
     /** @type {typeof TeqFw_Http2_Front_Gate_Response_Error} */

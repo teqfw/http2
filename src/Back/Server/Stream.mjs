@@ -67,7 +67,7 @@ class TeqFw_Http2_Back_Server_Stream {
         /** @type {TeqFw_Core_Defaults} */
         const DEF = spec['TeqFw_Core_Defaults$']; // singleton
         /** @type {TeqFw_Di_Container} */
-        const container = spec[DEF.DI_CONTAINER]; // singleton
+        const container = spec['TeqFw_Di_Container$']; // singleton
         /** @type {TeqFw_Core_Logger} */
         const logger = spec['TeqFw_Core_Logger$']; // singleton
         /** @type {TeqFw_Di_IdParser} */

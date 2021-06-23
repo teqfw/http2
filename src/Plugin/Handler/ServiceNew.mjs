@@ -59,7 +59,7 @@ async function Factory(spec) {
     /** @type {TeqFw_Http2_Defaults} */
     const DEF = spec['TeqFw_Http2_Defaults$'];
     /** @type {TeqFw_Di_Container} */
-    const container = spec[DEF.MOD_CORE.DI_CONTAINER];   // singleton
+    const container = spec['TeqFw_Di_Container$'];   // singleton
     /** @type {TeqFw_Core_Logger} */
     const logger = spec['TeqFw_Core_Logger$'];  // singleton
     /** @type {TeqFw_Core_Plugin_Registry} */
