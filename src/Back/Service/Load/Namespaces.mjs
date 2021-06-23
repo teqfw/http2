@@ -12,7 +12,7 @@ import $path from 'path';
 class TeqFw_Http2_Back_Service_Load_Namespaces {
 
     constructor(spec) {
-        // CONSTRUCTOR INJECTED DEPS
+        // EXTRACT DEPS
         /** @type {TeqFw_Http2_Defaults} */
         const DEF = spec['TeqFw_Http2_Defaults$']; // singleton
         /** @type {TeqFw_Core_Plugin_Registry} */

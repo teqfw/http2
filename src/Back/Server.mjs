@@ -6,7 +6,7 @@ import http2 from 'http2';
 export default class TeqFw_Http2_Back_Server {
 
     constructor(spec) {
-        // CONSTRUCTOR INJECTED DEPS
+        // EXTRACT DEPS
         /** @type {TeqFw_Http2_Back_Server_Stream} */
         const factHndlStream = spec['TeqFw_Http2_Back_Server_Stream$'];   // singleton
 

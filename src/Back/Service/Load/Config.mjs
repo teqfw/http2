@@ -4,7 +4,7 @@
 class TeqFw_Http2_Back_Service_Load_Config {
 
     constructor(spec) {
-        // CONSTRUCTOR INJECTED DEPS
+        // EXTRACT DEPS
         /** @type {TeqFw_Core_Defaults} */
         const DEF = spec['TeqFw_Core_Defaults$'];
         /** @type {TeqFw_Core_Back_Config} */

@@ -63,7 +63,7 @@ class TeqFw_Http2_Back_Server_Stream_Shared {
 class TeqFw_Http2_Back_Server_Stream {
 
     constructor(spec) {
-        // CONSTRUCTOR INJECTED DEPS
+        // EXTRACT DEPS
         /** @type {TeqFw_Core_Defaults} */
         const DEF = spec['TeqFw_Core_Defaults$']; // singleton
         /** @type {TeqFw_Di_Container} */

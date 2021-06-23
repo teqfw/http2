@@ -5,7 +5,7 @@
 export default class TeqFw_Http2_Api_Back_Service_Factory {
 
     constructor(spec) {
-        // CONSTRUCTOR INJECTED DEPS
+        // EXTRACT DEPS
         /** @type {TeqFw_Core_Defaults} */
         const DEF = spec['TeqFw_Core_Defaults$'];
 
