@@ -1,12 +1,12 @@
 /**
- * @namespace TeqFw_Http2_Cli_Stop
+ * @namespace TeqFw_Http2_Back_Cli_Stop
  */
 // MODULE'S IMPORT
 import $path from 'path';
 import $fs from 'fs';
 
 // DEFINE WORKING VARS
-const NS = 'TeqFw_Http2_Cli_Stop';
+const NS = 'TeqFw_Http2_Back_Cli_Stop';
 
 // DEFINE MODULE'S FUNCTIONS
 /**
@@ -15,7 +15,7 @@ const NS = 'TeqFw_Http2_Cli_Stop';
  * @param {TeqFw_Di_SpecProxy} spec
  * @returns {TeqFw_Core_App_Back_Cli_Command_Data}
  * @constructor
- * @memberOf TeqFw_Http2_Cli_Stop
+ * @memberOf TeqFw_Http2_Back_Cli_Stop
  */
 function Factory(spec) {
     // PARSE INPUT & DEFINE WORKING VARS
@@ -30,7 +30,7 @@ function Factory(spec) {
     /**
      * Stop the HTTP/2 server.
      * @returns {Promise<void>}
-     * @memberOf TeqFw_Http2_Cli_Stop
+     * @memberOf TeqFw_Http2_Back_Cli_Stop
      */
     const action = async function () {
         try {

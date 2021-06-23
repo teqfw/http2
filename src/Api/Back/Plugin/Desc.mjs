@@ -1,5 +1,6 @@
 /**
- * Data-object to represent plugin descriptor structure that is related to 'http2' node:
+ * Data-object to represent plugin descriptor (teqfw.json) structure
+ * that is related to 'http2' node:
  */
 // MODULE'S VARS
 const NS = 'TeqFw_Http2_Api_Back_Plugin_Desc';

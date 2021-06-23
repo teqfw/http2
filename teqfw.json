@@ -4,8 +4,15 @@
     "path": "./src"
   },
   "http2": {
+    "realm": "http2",
     "handlers": [
       {
+        "depId": "TeqFw_Http2_Plugin_Handler_ServiceNew$",
+        "before": [
+          "TeqFw_Http2_Plugin_Handler_Service"
+        ],
+        "weight": 120
+      }, {
         "depId": "TeqFw_Http2_Plugin_Handler_Service$",
         "before": [
           "TeqFw_Http2_Plugin_Handler_Static"
@@ -15,6 +22,10 @@
         "depId": "TeqFw_Http2_Plugin_Handler_Static$",
         "weight": 10
       }
+    ],
+    "services": [
+      "TeqFw_Http2_Back_Service_Load_Config$",
+      "TeqFw_Http2_Back_Service_Load_Namespaces$"
     ]
   }
 }

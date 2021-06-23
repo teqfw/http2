@@ -1,21 +1,21 @@
 /**
- * Factory to create handler for API services.
+ * Factory to create handler for API services (updated format).
  *
- * @namespace TeqFw_Http2_Plugin_Handler_Service
+ * @namespace TeqFw_Http2_Plugin_Handler_ServiceNew
  */
 // MODULE'S IMPORT
 import $path from 'path';
 import {constants as H2} from 'http2';
 
 // MODULE'S VARS
-const NS = 'TeqFw_Http2_Plugin_Handler_Service';
+const NS = 'TeqFw_Http2_Plugin_Handler_ServiceNew';
 const PARSE = 'parse';
 const SERVICE = 'service';
 
 // MODULE'S CLASSES
 /**
  * Data structure to group input data for API services.
- * @memberOf TeqFw_Http2_Plugin_Handler_Service
+ * @memberOf TeqFw_Http2_Plugin_Handler_ServiceNew
  */
 class Context {
     /**
@@ -34,7 +34,7 @@ Object.defineProperty(Context, 'name', {value: `${NS}.${Context.name}`});
 
 /**
  * Data structure to group result data for API services.
- * @memberOf TeqFw_Http2_Plugin_Handler_Service
+ * @memberOf TeqFw_Http2_Plugin_Handler_ServiceNew
  */
 class Result {
     /** @type {Object.<String, String>} */
@@ -80,12 +80,12 @@ async function Factory(spec) {
      *
      * @param {TeqFw_Http2_Back_Server_Stream_Context} context
      * @returns {Promise<TeqFw_Http2_Back_Server_Stream_Report>}
-     * @memberOf TeqFw_Http2_Plugin_Handler_Service
+     * @memberOf TeqFw_Http2_Plugin_Handler_ServiceNew
      */
     async function handleHttp2Request(context) {
         // MAIN FUNCTIONALITY
         const result = new Report();
-        /** @type {TeqFw_Http2_Plugin_Handler_Service.Context} */
+        /** @type {TeqFw_Http2_Plugin_Handler_ServiceNew.Context} */
         const apiCtx = new Context();
         apiCtx.sharedContext = context.shared;
         apiCtx.sharedContext[DEF.HTTP_SHARE_HEADERS] = context.headers;
@@ -141,7 +141,7 @@ async function Factory(spec) {
      * @param {TeqFw_Di_Container} container
      * @param {String} mainClassName context name for DI container to get plugin initializers.
      * @returns {Promise<void>}
-     * @memberOf TeqFw_Http2_Plugin_Handler_Service.createHandler
+     * @memberOf TeqFw_Http2_Plugin_Handler_ServiceNew.createHandler
      */
     async function initRoutes(container, mainClassName) {
         // DEFINE INNER FUNCTIONS

@@ -10,8 +10,8 @@ export default class TeqFw_Http2_Plugin_Init {
 
         this.getCommands = function () {
             return [
-                'TeqFw_Http2_Cli_Start$',
-                'TeqFw_Http2_Cli_Stop$',
+                'TeqFw_Http2_Back_Cli_Start$',
+                'TeqFw_Http2_Back_Cli_Stop$',
             ];
         };
 

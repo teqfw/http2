@@ -1,12 +1,12 @@
 /**
- * @namespace TeqFw_Http2_Cli_Start
+ * @namespace TeqFw_Http2_Back_Cli_Start
  */
 // MODULE'S IMPORT
 import $path from 'path';
 import $fs from 'fs';
 
 // DEFINE WORKING VARS
-const NS = 'TeqFw_Http2_Cli_Start';
+const NS = 'TeqFw_Http2_Back_Cli_Start';
 
 // DEFINE MODULE'S FUNCTIONS
 /**
@@ -15,7 +15,7 @@ const NS = 'TeqFw_Http2_Cli_Start';
  * @param {TeqFw_Di_SpecProxy} spec
  * @returns {TeqFw_Core_App_Back_Cli_Command_Data}
  * @constructor
- * @memberOf TeqFw_Http2_Cli_Start
+ * @memberOf TeqFw_Http2_Back_Cli_Start
  */
 function Factory(spec) {
     // EXTRACT DEPS
@@ -36,7 +36,7 @@ function Factory(spec) {
     /**
      * Start the HTTP/2 server.
      * @returns {Promise<void>}
-     * @memberOf TeqFw_Http2_Cli_Start
+     * @memberOf TeqFw_Http2_Back_Cli_Start
      */
     const action = async function () {
         logger.info('Starting HTTP/2 server.');

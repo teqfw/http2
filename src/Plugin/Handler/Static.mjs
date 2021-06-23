@@ -23,10 +23,10 @@ const INDEX_NAME = 'index.html';
  */
 async function Factory(spec) {
     // EXTRACT DEPS
-    /** @type {TeqFw_Core_App_Defaults} */
-    const DEF = spec['TeqFw_Core_App_Defaults$'];
+    /** @type {TeqFw_Http2_Defaults} */
+    const DEF = spec['TeqFw_Http2_Defaults$']; // singleton
     /** @type {TeqFw_Di_Container} */
-    const container = spec[DEF.DI_CONTAINER]; // singleton
+    const container = spec[DEF.MOD_CORE.DI_CONTAINER]; // singleton
     /** @type {TeqFw_Core_App_Back_Config} */
     const config = spec['TeqFw_Core_App_Back_Config$']; // singleton
     /** @type {TeqFw_Core_App_Logger} */
@@ -76,8 +76,8 @@ async function Factory(spec) {
                 }
                 // add 'index.html' for 'web' area
                 if (
-                    (addr.zone !== DEF.AREA_API) &&
-                    (addr.zone !== DEF.AREA_SRC) &&
+                    (addr.zone !== DEF.ZONE_API) &&
+                    (addr.zone !== DEF.ZONE_SRC) &&
                     (result.slice(-1) === '/')
                 ) {
                     result += INDEX_NAME;
@@ -137,12 +137,12 @@ async function Factory(spec) {
     const items = regPlugins.items();
     for (const item of items) {
         // map URLs to filesystem for ES6/JS sources
-        const srcUrl = $path.join('/', DEF.AREA_SRC, item.name);
+        const srcUrl = $path.join('/', DEF.ZONE_SRC, item.name);
         const srcPath = $path.join(item.path, DEF.FS_SRC);
         mapRoutes[srcUrl] = srcPath;
         logger.debug(`    ${srcUrl} => ${srcPath}`);
         // map URLs to filesystem for static resources
-        const statUrl = $path.join('/', DEF.AREA_WEB, item.name);
+        const statUrl = $path.join('/', DEF.ZONE_WEB, item.name);
         const statPath = $path.join(item.path, DEF.FS_WEB);
         mapRoutes[statUrl] = statPath;
         logger.debug(`    ${statUrl} => ${statPath}`);
@@ -153,7 +153,7 @@ async function Factory(spec) {
             if (plugin && (typeof plugin.getHttpStaticMaps === 'function')) {
                 const map = plugin.getHttpStaticMaps();
                 for (const key in map) {
-                    const url = $path.join('/', DEF.AREA_SRC, key);
+                    const url = $path.join('/', DEF.ZONE_SRC, key);
                     const path = $path.join(rootFs, 'node_modules', map[key]);
                     mapRoutes[url] = path;
                     logger.debug(`    ${url} => ${path}`);

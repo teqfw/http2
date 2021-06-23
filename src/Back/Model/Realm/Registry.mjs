@@ -32,8 +32,8 @@ class TeqFw_Http2_Back_Model_Realm_Registry {
 
     constructor(spec) {
         // EXTRACT DEPS
-        /** @type {TeqFw_Core_App_Defaults} */
-        const DEF = spec['TeqFw_Core_App_Defaults$']; // singleton
+        /** @type {TeqFw_Http2_Defaults} */
+        const DEF = spec['TeqFw_Http2_Defaults$']; // singleton
         /** @type {TeqFw_Core_App_Plugin_Registry} */
         const regPlugins = spec['TeqFw_Core_App_Plugin_Registry$'];   // singleton
         /** @type {String[]} internal store for areas */
@@ -58,12 +58,12 @@ class TeqFw_Http2_Back_Model_Realm_Registry {
                 }
             }
             // define zone
-            if (path.startsWith(`/${DEF.AREA_API}`)) {
-                result.zone = DEF.AREA_API;
-            } else if (path.startsWith(`/${DEF.AREA_SRC}`)) {
-                result.zone = DEF.AREA_SRC;
-            } else if (path.startsWith(`/${DEF.AREA_WEB}`)) {
-                result.zone = DEF.AREA_WEB;
+            if (path.startsWith(`/${DEF.ZONE_API}`)) {
+                result.zone = DEF.ZONE_API;
+            } else if (path.startsWith(`/${DEF.ZONE_SRC}`)) {
+                result.zone = DEF.ZONE_SRC;
+            } else if (path.startsWith(`/${DEF.ZONE_WEB}`)) {
+                result.zone = DEF.ZONE_WEB;
             }
             if (result.zone !== undefined) {
                 // remove area from the path
