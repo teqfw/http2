@@ -2,7 +2,7 @@
  * Template for factories to create API services.
  * @interface
  */
-export default class TeqFw_Http2_Api_Back_Service_Factory {
+export default class TeqFw_Http2_Back_Api_Service_Factory {
 
     constructor(spec) {
         // EXTRACT DEPS
@@ -22,7 +22,7 @@ export default class TeqFw_Http2_Api_Back_Service_Factory {
              *
              * @param {TeqFw_Http2_Back_Server_Stream_Context} context
              * @returns {Promise<Object>}
-             * @memberOf TeqFw_Http2_Api_Back_Service_Factory
+             * @memberOf TeqFw_Http2_Back_Api_Service_Factory
              * @interface
              */
             async function parse(context) {
@@ -47,7 +47,7 @@ export default class TeqFw_Http2_Api_Back_Service_Factory {
              *
              * @param {TeqFw_Http2_Plugin_Handler_Service.Context} apiCtx
              * @returns {Promise<TeqFw_Http2_Plugin_Handler_Service.Result>}
-             * @memberOf TeqFw_Http2_Api_Back_Service_Factory
+             * @memberOf TeqFw_Http2_Back_Api_Service_Factory
              * @interface
              */
             async function service(apiCtx) {

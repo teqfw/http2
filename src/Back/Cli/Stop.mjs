@@ -48,7 +48,7 @@ function Factory(spec) {
 
     // COMPOSE RESULT
     const res = fCommand.create();
-    res.ns = DEF.BACK_REALM;
+    res.realm = DEF.BACK_REALM;
     res.name = 'stop';
     res.desc = 'Stop the HTTP/2 server.';
     res.action = action;

@@ -64,17 +64,14 @@ class TeqFw_Http2_Back_Server_Stream {
 
     constructor(spec) {
         // EXTRACT DEPS
-        /** @type {TeqFw_Core_Defaults} */
-        const DEF = spec['TeqFw_Core_Defaults$']; // singleton
         /** @type {TeqFw_Di_Container} */
         const container = spec['TeqFw_Di_Container$']; // singleton
         /** @type {TeqFw_Core_Logger} */
         const logger = spec['TeqFw_Core_Logger$']; // singleton
-        /** @type {TeqFw_Di_IdParser} */
-        const idParser = spec['TeqFw_Di_IdParser$']; // singleton
-        /** @type {TeqFw_Core_Plugin_Registry} */
-        const registry = spec['TeqFw_Core_Plugin_Registry$']; // singleton
-        const {Handler: DDesc} = spec['TeqFw_Http2_Api_Back_Plugin_Desc']; // ES6 module destructing
+        /** @type {TeqFw_Core_Back_Scan_Plugin_Registry} */
+        const registry = spec['TeqFw_Core_Back_Scan_Plugin_Registry$']; // singleton
+        /** @type {TeqFw_Http2_Back_Api_Dto_Plugin_Desc_Handler.Factory} */
+        const fHandler = spec['TeqFw_Http2_Back_Api_Dto_Plugin_Desc_Handler#Factory$']; // singleton
 
         // PARSE INPUT & DEFINE WORKING VARS
         /** @type {Array.<function>} */
@@ -238,11 +235,10 @@ class TeqFw_Http2_Back_Server_Stream {
                     if (Array.isArray(plugin.teqfw?.http2?.handlers)) {
                         const handlers = plugin.teqfw.http2.handlers;
                         for (const one of handlers) {
-                            /** @type {TeqFw_Http2_Api_Back_Plugin_Desc.Handler} */
-                            const data = Object.assign(new DDesc(), one);
-                            const hndl = await container.get(data.depId);
-                            const parts = idParser.parse(data.depId);
-                            hndlReg.push({[ID]: parts.nameModule, [HNDL]: hndl, [DESC]: data});
+                            /** @type {TeqFw_Http2_Back_Api_Dto_Plugin_Desc_Handler} */
+                            const data = fHandler.create(one);
+                            const hndl = await container.get(`${data.factoryId}$`);
+                            hndlReg.push({[ID]: data.factoryId, [HNDL]: hndl, [DESC]: data});
                         }
                     }
                 }

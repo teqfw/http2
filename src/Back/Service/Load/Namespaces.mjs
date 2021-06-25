@@ -15,8 +15,8 @@ class TeqFw_Http2_Back_Service_Load_Namespaces {
         // EXTRACT DEPS
         /** @type {TeqFw_Http2_Defaults} */
         const DEF = spec['TeqFw_Http2_Defaults$']; // singleton
-        /** @type {TeqFw_Core_Plugin_Registry} */
-        const registry = spec['TeqFw_Core_Plugin_Registry$'];   // singleton
+        /** @type {TeqFw_Core_Back_Scan_Plugin_Registry} */
+        const registry = spec['TeqFw_Core_Back_Scan_Plugin_Registry$'];   // singleton
         /** @type {typeof TeqFw_Core_Shared_Service_Route_Load_Namespaces_Request} */
         const Request = spec['TeqFw_Core_Shared_Service_Route_Load_Namespaces#Request'];   // class
         /** @type {typeof TeqFw_Core_Shared_Service_Route_Load_Namespaces_Response} */
@@ -31,14 +31,14 @@ class TeqFw_Http2_Back_Service_Load_Namespaces {
         /**
          * Loop through all plugins and compose namespace mapping for static sources.
          * (@see TeqFw_Http2_Plugin_Handler_Static)
-         * @param {TeqFw_Core_Plugin_Registry} registry
+         * @param {TeqFw_Core_Back_Scan_Plugin_Registry} registry
          * @memberOf TeqFw_Http2_Back_Service_Load_Namespaces
          */
         function getNamespaces(registry) {
             const result = {};
             const plugins = registry.items();
             for (const one of plugins) {
-                /** @type {TeqFw_Core_Plugin_Package_Data_Autoload} */
+                /** @type {TeqFw_Core_Back_Api_Dto_Plugin_Desc_Autoload} */
                 const auto = one.teqfw.autoload;
                 const srcUrl = $path.join('/', DEF.ZONE_SRC, one.name);
                 const item = Object.assign(new DItem(), auto);

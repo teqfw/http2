@@ -31,8 +31,8 @@ async function Factory(spec) {
     const config = spec['TeqFw_Core_Back_Config$']; // singleton
     /** @type {TeqFw_Core_Logger} */
     const logger = spec['TeqFw_Core_Logger$']; // singleton
-    /** @type {TeqFw_Core_Plugin_Registry} */
-    const regPlugins = spec['TeqFw_Core_Plugin_Registry$']; // singleton
+    /** @type {TeqFw_Core_Back_Scan_Plugin_Registry} */
+    const regPlugins = spec['TeqFw_Core_Back_Scan_Plugin_Registry$']; // singleton
     /** @type {TeqFw_Http2_Back_Model_Realm_Registry} */
     const regRealms = spec['TeqFw_Http2_Back_Model_Realm_Registry$']; // singleton
     /** @type {typeof TeqFw_Http2_Back_Server_Stream_Report} */
@@ -147,17 +147,13 @@ async function Factory(spec) {
         mapRoutes[statUrl] = statPath;
         logger.debug(`    ${statUrl} => ${statPath}`);
         // map additional resources
-        if (item.initClass) {
-            /** @type {TeqFw_Core_Plugin_Init} */
-            const plugin = await container.get(item.initClass, NS);
-            if (plugin && (typeof plugin.getHttpStaticMaps === 'function')) {
-                const map = plugin.getHttpStaticMaps();
-                for (const key in map) {
-                    const url = $path.join('/', DEF.ZONE_SRC, key);
-                    const path = $path.join(rootFs, 'node_modules', map[key]);
-                    mapRoutes[url] = path;
-                    logger.debug(`    ${url} => ${path}`);
-                }
+        if (typeof item.teqfw?.http2?.statics === 'object') {
+            const map = item.teqfw?.http2?.statics;
+            for (const key in map) {
+                const url = $path.join('/', DEF.ZONE_SRC, key);
+                const path = $path.join(rootFs, 'node_modules', map[key]);
+                mapRoutes[url] = path;
+                logger.debug(`    ${url} => ${path}`);
             }
         }
     }
