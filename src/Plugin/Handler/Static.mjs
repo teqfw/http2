@@ -41,7 +41,7 @@ async function Factory(spec) {
     // PARSE INPUT & DEFINE WORKING VARS
     const rootFs = config.get('/path/root');    // path to project root
     const rootWeb = $path.join(rootFs, DEF.FS_WEB);    // default path to app web root
-    const mapRoutes = {};   // '/src/@teqfw/core-app' => '/.../node_modules/@teqfw/core-app/src'
+    const mapRoutes = {};   // '/src/@teqfw/core' => '/.../node_modules/@teqfw/core/src'
 
     // DEFINE INNER FUNCTIONS
     /**
