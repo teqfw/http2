@@ -170,18 +170,8 @@ async function Factory(spec) {
         logger.debug('Map plugins API services:');
         const items = regPlugin.items();
         for (const item of items) {
-            const services = [];
-            // get services data from plugin init object
-            const {
-                realm: realmInit,
-                services: servicesInit
-            } = await processPluginInitFunc(item, container, mainClassName);
-            const realmDesc = item.teqfw?.http2?.realm;
-            const servicesDesc = item.teqfw?.http2?.services;
-            // concatenate data from init func and from teqfw descriptor
-            const realm = realmDesc ?? realmInit;
-            services.push(...servicesInit);
-            if (Array.isArray(servicesDesc)) services.push(...servicesDesc);
+            const realm = item.teqfw?.http2?.realm;
+            const services = item.teqfw?.http2?.services;
             if (realm && services.length) {
                 const prefix = $path.join('/', realm);
                 for (const one of services) {
