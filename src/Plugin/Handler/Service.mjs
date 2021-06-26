@@ -144,29 +144,6 @@ async function Factory(spec) {
      * @memberOf TeqFw_Http2_Plugin_Handler_Service.createHandler
      */
     async function initRoutes(container, mainClassName) {
-        // DEFINE INNER FUNCTIONS
-        /**
-         * Extract service related data from plugin init function (old style).
-         *
-         * @param {TeqFw_Core_Back_Scan_Plugin_Item} plugin
-         * @param {TeqFw_Di_Container} container
-         * @param {String} mainClassName
-         * @return {Promise<{realm: String, services: String[]}>}
-         */
-        async function processPluginInitFunc(plugin, container, mainClassName) {
-            let realm, services = [];
-            if (plugin.initClass) {
-                /** @type {TeqFw_Core_Plugin_Init_Base} */
-                const initObj = await container.get(plugin.initClass, mainClassName);
-                if (initObj && (typeof initObj.getServicesList === 'function')) {
-                    realm = initObj.getServicesRealm();
-                    services = initObj.getServicesList();
-                }
-            }
-            return {realm, services};
-        }
-
-        // MAIN FUNCTIONALITY
         logger.debug('Map plugins API services:');
         const items = regPlugin.items();
         for (const item of items) {

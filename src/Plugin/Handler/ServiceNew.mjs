@@ -144,44 +144,11 @@ async function Factory(spec) {
      * @memberOf TeqFw_Http2_Plugin_Handler_ServiceNew.createHandler
      */
     async function initRoutes(container, mainClassName) {
-        // DEFINE INNER FUNCTIONS
-        /**
-         * Extract service related data from plugin init function (old style).
-         *
-         * @param {TeqFw_Core_Back_Scan_Plugin_Item} plugin
-         * @param {TeqFw_Di_Container} container
-         * @param {String} mainClassName
-         * @return {Promise<{realm: String, services: String[]}>}
-         */
-        async function processPluginInitFunc(plugin, container, mainClassName) {
-            let realm, services = [];
-            if (plugin.initClass) {
-                /** @type {TeqFw_Core_Plugin_Init_Base} */
-                const initObj = await container.get(plugin.initClass, mainClassName);
-                if (initObj && (typeof initObj.getServicesList === 'function')) {
-                    realm = initObj.getServicesRealm();
-                    services = initObj.getServicesList();
-                }
-            }
-            return {realm, services};
-        }
-
-        // MAIN FUNCTIONALITY
         logger.debug('Map plugins API services:');
         const items = regPlugin.items();
         for (const item of items) {
-            const services = [];
-            // get services data from plugin init object
-            const {
-                realm: realmInit,
-                services: servicesInit
-            } = await processPluginInitFunc(item, container, mainClassName);
-            const realmDesc = item.teqfw?.http2?.realm;
-            const servicesDesc = item.teqfw?.http2?.services;
-            // concatenate data from init func and from teqfw descriptor
-            const realm = realmDesc ?? realmInit;
-            services.push(...servicesInit);
-            if (Array.isArray(servicesDesc)) services.push(...servicesDesc);
+            const realm = item.teqfw?.http2?.realm;
+            const services = item.teqfw?.http2?.services;
             if (realm && services.length) {
                 const prefix = $path.join('/', realm);
                 for (const one of services) {

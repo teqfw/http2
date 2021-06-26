@@ -2,8 +2,8 @@
  * Frontend gate to "Save one field of user profile" service.
  */
 export default function TeqFw_Http2_Front_Gate_Load_Config(spec) {
-    /** @type {TeqFw_Core_Defaults} */
-    const DEF = spec['TeqFw_Core_Defaults$'];   // singleton
+    /** @type {TeqFw_Http2_Defaults} */
+    const DEF = spec['TeqFw_Http2_Defaults$'];   // singleton
     /** @type {TeqFw_Core_Front_Data_Config} */
     const config = spec['TeqFw_Core_Front_Data_Config$']; // singleton
     /** @type {TeqFw_Di_Container} */

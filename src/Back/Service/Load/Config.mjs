@@ -5,8 +5,8 @@ class TeqFw_Http2_Back_Service_Load_Config {
 
     constructor(spec) {
         // EXTRACT DEPS
-        /** @type {TeqFw_Core_Defaults} */
-        const DEF = spec['TeqFw_Core_Defaults$'];
+        /** @type {TeqFw_Http2_Defaults} */
+        const DEF = spec['TeqFw_Http2_Defaults$'];
         /** @type {TeqFw_Core_Back_Config} */
         const config = spec['TeqFw_Core_Back_Config$'];  // singleton
         /** @type {typeof TeqFw_Core_Shared_Service_Route_Load_Config_Request} */
