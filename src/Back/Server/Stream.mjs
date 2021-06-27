@@ -105,9 +105,9 @@ class TeqFw_Http2_Back_Server_Stream {
          * any handler reports about processing of the request.
          *
          * @param {ServerHttp2Stream} stream
-         * @param {Object<String, String>} headers
-         * @param {Number} flags
-         * @param {String} body
+         * @param {Object<string, string>} headers
+         * @param {number} flags
+         * @param {string} body
          * @returns {Promise<void>}
          */
         async function requestHandler(stream, headers, flags, body) {
@@ -178,7 +178,7 @@ class TeqFw_Http2_Back_Server_Stream {
             }
 
             // MAIN FUNCTIONALITY
-            logRequest(headers);    // log request
+            logRequest(headers);
 
             // Analyze input and define type of the request (api or static)
             if (hasValidMethod(headers)) {
@@ -301,7 +301,7 @@ class TeqFw_Http2_Back_Server_Stream {
                     stream.on('end', () => requestHandler(stream, headers, flags, Buffer.concat(chunks).toString()));
                     stream.on('error', (err) => respond500(stream, err));
                 } catch (err) {
-                    respond500(err, stream);
+                    respond500(stream, err);
                 }
             }
 

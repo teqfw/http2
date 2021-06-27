@@ -34,7 +34,7 @@ async function Factory(spec) {
     /** @type {TeqFw_Core_Back_Scan_Plugin_Registry} */
     const regPlugins = spec['TeqFw_Core_Back_Scan_Plugin_Registry$']; // singleton
     /** @type {TeqFw_Http2_Back_Model_Realm_Registry} */
-    const regRealms = spec['TeqFw_Http2_Back_Model_Realm_Registry$']; // singleton
+    const regAreas = spec['TeqFw_Http2_Back_Model_Realm_Registry$']; // singleton
     /** @type {typeof TeqFw_Http2_Back_Server_Stream_Report} */
     const Report = spec['TeqFw_Http2_Back_Server_Stream#Report']; // class
 
@@ -66,7 +66,7 @@ async function Factory(spec) {
             // DEFINE INNER FUNCTIONS
             function normalize(path) {
                 let result = path;
-                const addr = regRealms.parseAddress(path);
+                const addr = regAreas.parseAddress(path);
                 if (addr.zone !== undefined) {
                     result = `/${addr.zone}${addr.route}`;
                 } else if (addr.area !== undefined) {
