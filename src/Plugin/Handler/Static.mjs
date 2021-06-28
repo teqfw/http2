@@ -25,8 +25,6 @@ async function Factory(spec) {
     // EXTRACT DEPS
     /** @type {TeqFw_Http2_Defaults} */
     const DEF = spec['TeqFw_Http2_Defaults$']; // singleton
-    /** @type {TeqFw_Di_Container} */
-    const container = spec['TeqFw_Di_Container$']; // singleton
     /** @type {TeqFw_Core_Back_Config} */
     const config = spec['TeqFw_Core_Back_Config$']; // singleton
     /** @type {TeqFw_Core_Logger} */
@@ -65,12 +63,12 @@ async function Factory(spec) {
 
             // DEFINE INNER FUNCTIONS
             function normalize(path) {
-                let result = path;
+                let result;
                 const addr = regAreas.parseAddress(path);
                 if (addr.zone !== undefined) {
                     result = `/${addr.zone}${addr.route}`;
-                } else if (addr.area !== undefined) {
-                    result = `/${addr.area}${addr.route}`;
+                } else if (addr.door !== undefined) {
+                    result = `/${addr.door}${addr.route}`;
                 } else {
                     result = `${addr.route}`;
                 }

@@ -11,10 +11,11 @@ const NS = 'TeqFw_Http2_Back_Model_Realm_Registry';
  * Structure to represent address (URL).
  * General form: https://hostname.com/root/lang/area/zone/route/to/resource
  * @memberOf TeqFw_Http2_Back_Model_Realm_Registry
+ * @deprecated
  */
 class Address {
-    /** @type {string} frontend area ('admin' or 'pub') */
-    area;
+    /** @type {string} frontend door ('admin' or 'pub') */
+    door;
     /** @type {string} language code (TODO: reserved) */
     lang;
     /** @type {string} root folder (TODO: reserved) */
@@ -27,6 +28,7 @@ class Address {
 
 /**
  * Registry for HTTP/2 server areas.
+ * @deprecated
  */
 class TeqFw_Http2_Back_Model_Realm_Registry {
 
@@ -52,7 +54,7 @@ class TeqFw_Http2_Back_Model_Realm_Registry {
             // define area (pub, admin)
             for (const one of registry) {
                 if (path.startsWith(`/${one}`)) {
-                    result.area = one;
+                    result.door = one;
                     path = path.replace(`/${one}`, '');
                     break; // one only realm is allowed in URL
                 }
