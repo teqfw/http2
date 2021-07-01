@@ -8,6 +8,7 @@ import $path from 'path';
 
 /**
  * Load namespaces data to initialize DI container on the front.
+ * @deprecated use TeqFw_Web_Back_Service_Load_Namespaces
  */
 class TeqFw_Http2_Back_Service_Load_Namespaces {
 

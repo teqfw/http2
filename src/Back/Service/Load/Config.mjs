@@ -1,5 +1,6 @@
 /**
  * Load local configuration data available for the front areas.
+ * @deprecated use TeqFw_Web_Back_Service_Load_Config
  */
 class TeqFw_Http2_Back_Service_Load_Config {
 
