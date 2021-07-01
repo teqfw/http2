@@ -7,8 +7,6 @@ export default class TeqFw_Http2_Defaults {
 
     BACK_REALM = 'http2';  // realm for API services ('/api/http2/...') and CLI commands ('http2-...')
 
-    DI_STORE = 'coreStore'; // TODO: move it to http2/vue plugin (see TeqFw_Http2_Front_Gate_Load_Config.gate).
-
     FS_SRC = 'src'; // default folder for plugin's static resources in filesystem
     FS_WEB = 'web'; // default folder for plugin's static resources in filesystem
 

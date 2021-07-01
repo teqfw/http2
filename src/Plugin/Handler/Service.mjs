@@ -35,6 +35,7 @@ Object.defineProperty(Context, 'name', {value: `${NS}.${Context.name}`});
 /**
  * Data structure to group result data for API services.
  * @memberOf TeqFw_Http2_Plugin_Handler_Service
+ * @deprecated
  */
 class Result {
     /** @type {Object.<String, String>} */

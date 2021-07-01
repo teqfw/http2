@@ -5,14 +5,14 @@ export default class TeqFw_Http2_Front_Gate_Connect {
     constructor(spec) {
         /** @type {TeqFw_Http2_Defaults} */
         const DEF = spec['TeqFw_Http2_Defaults$']; // singleton
-        /** @type {TeqFw_Core_Front_Data_Config} */
-        const config = spec['TeqFw_Core_Front_Data_Config$']; // singleton
+        /** @type {TeqFw_Web_Front_Api_Dto_Config} */
+        const config = spec['TeqFw_Web_Front_Api_Dto_Config$']; // singleton
         /** @type {TeqFw_Http2_Front_Gate_Connect_AjaxLed} */
         const ajaxLed = spec['TeqFw_Http2_Front_Gate_Connect_AjaxLed$']; // singleton
         /** @type {TeqFw_Http2_Front_Gate_Connect_ErrorHandler} */
         const errHndl = spec['TeqFw_Http2_Front_Gate_Connect_ErrorHandler$']; // singleton
 
-        const BASE = `https://${config.urlBase}/${config.area}/${DEF.ZONE_API}`;
+        const BASE = `https://${config.urlBase}/${config.door}/${DEF.ZONE_API}`;
 
         /**
          * Send API service request to backend.
