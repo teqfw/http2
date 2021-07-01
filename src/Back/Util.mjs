@@ -7,14 +7,14 @@
  * Compose expired HTTP cookie to remove existing cookie with the same name in the browser.
  *
  * @param {String} name
- * @param {String} realm
+ * @param {String} door
  * @returns {String}
  * @memberOf TeqFw_Http2_Back_Util
  */
-function cookieClear({name, realm = ''}) {
+function cookieClear({name, door = ''}) {
     // MAIN FUNCTIONALITY
     const exp = 'Expires=Thu, 01 Jan 1970 00:00:00 GMT';
-    const path = `Path=/${realm}`;
+    const path = `Path=/${door}`;
     return `${name}=; ${exp}; ${path}`;
 }
 
