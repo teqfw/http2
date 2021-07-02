@@ -6,11 +6,9 @@
 export default class TeqFw_Http2_Front_Gate_Connect_ErrorHandler {
     business(error) {
         console.log(JSON.stringify(error));
-        debugger;
     }
 
     infrastructure(error) {
         console.log(JSON.stringify(error));
-        debugger;
     }
 }

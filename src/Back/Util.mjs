@@ -6,30 +6,29 @@
 /**
  * Compose expired HTTP cookie to remove existing cookie with the same name in the browser.
  *
- * @param {String} name
- * @param {String} door
- * @returns {String}
+ * @param {string} name
+ * @param {string} path
+ * @returns {string}
  * @memberOf TeqFw_Http2_Back_Util
  */
-function cookieClear({name, door = ''}) {
+function cookieClear({name, path = '/'}) {
     // MAIN FUNCTIONALITY
     const exp = 'Expires=Thu, 01 Jan 1970 00:00:00 GMT';
-    const path = `Path=/${door}`;
-    return `${name}=; ${exp}; ${path}`;
+    return `${name}=; ${exp}; Path=${path}`;
 }
 
 /**
  * Construct string for 'Set-Cookie' HTTP header.
  *
- * @param {String} name
- * @param {String} value
- * @param {String} path
+ * @param {string} name
+ * @param {string} value
+ * @param {string} path
  * @param {Date|number|String} expires 'Expires=' for Date & String, 'Max-Age=' for integer number
- * @param {String} domain
- * @param {Boolean} secure
- * @param {Boolean} httpOnly
- * @param {String} sameSite [Lax | Strict | None] @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie/SameSite
- * @returns {String}
+ * @param {string} domain
+ * @param {boolean} secure
+ * @param {boolean} httpOnly
+ * @param {string} sameSite [Lax | Strict | None] @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie/SameSite
+ * @returns {string}
  * @memberOf TeqFw_Http2_Back_Util
  */
 function cookieCreate({name, value, path, expires, domain, secure, httpOnly, sameSite}) {
