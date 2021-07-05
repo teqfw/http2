@@ -12,40 +12,6 @@ const NS = 'TeqFw_Http2_Plugin_Handler_Service';
 const PARSE = 'parse';
 const SERVICE = 'service';
 
-// MODULE'S CLASSES
-/**
- * Data structure to group input data for API services.
- * @memberOf TeqFw_Http2_Plugin_Handler_Service
- */
-class Context {
-    /**
-     * Structured body data.
-     * @type {Object}
-     */
-    request;
-    /**
-     * Data being shared between handlers.
-     * @type {TeqFw_Http2_Back_Server_Stream_Shared}
-     */
-    sharedContext;
-}
-
-Object.defineProperty(Context, 'name', {value: `${NS}.${Context.name}`});
-
-/**
- * Data structure to group result data for API services.
- * @memberOf TeqFw_Http2_Plugin_Handler_Service
- * @deprecated
- */
-class Result {
-    /** @type {Object.<String, String>} */
-    headers = {}; // see nodejs 'http2.constants' with 'HTTP2_HEADER_...' prefixes
-    /** @type {Object} */
-    response;
-}
-
-Object.defineProperty(Result, 'name', {value: `${NS}.${Result.name}`});
-
 // MODULE'S FUNCTIONS
 /**
  * Factory to create HTTP2 server handler for API services requests.
@@ -57,8 +23,8 @@ Object.defineProperty(Result, 'name', {value: `${NS}.${Result.name}`});
  */
 async function Factory(spec) {
     // EXTRACT DEPS
-    /** @type {TeqFw_Http2_Defaults} */
-    const DEF = spec['TeqFw_Http2_Defaults$'];
+    /** @type {TeqFw_Http2_Back_Defaults} */
+    const DEF = spec['TeqFw_Http2_Back_Defaults$'];
     /** @type {TeqFw_Di_Container} */
     const container = spec['TeqFw_Di_Container$'];   // singleton
     /** @type {TeqFw_Core_Logger} */
@@ -67,8 +33,7 @@ async function Factory(spec) {
     const regPlugin = spec['TeqFw_Core_Back_Scan_Plugin_Registry$'];   // singleton
     /** @type {TeqFw_Http2_Back_Model_Realm_Registry} */
     const regRealms = spec['TeqFw_Http2_Back_Model_Realm_Registry$']; // singleton
-    /** @type {typeof TeqFw_Http2_Back_Server_Stream_Report} */
-    const Report = spec['TeqFw_Http2_Back_Server_Stream#Report'];   // class
+
 
     // PARSE INPUT & DEFINE WORKING VARS
     const regexApi = new RegExp(`^(.*)(/${DEF.ZONE_API}/)(.*)`);
@@ -183,6 +148,4 @@ async function Factory(spec) {
 // MODULE'S EXPORT
 export {
     Factory as default,
-    Context,
-    Result,
 };

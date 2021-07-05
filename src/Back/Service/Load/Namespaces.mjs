@@ -14,8 +14,8 @@ class TeqFw_Http2_Back_Service_Load_Namespaces {
 
     constructor(spec) {
         // EXTRACT DEPS
-        /** @type {TeqFw_Http2_Defaults} */
-        const DEF = spec['TeqFw_Http2_Defaults$']; // singleton
+        /** @type {TeqFw_Http2_Back_Defaults} */
+        const DEF = spec['TeqFw_Http2_Back_Defaults$']; // singleton
         /** @type {TeqFw_Core_Back_Scan_Plugin_Registry} */
         const registry = spec['TeqFw_Core_Back_Scan_Plugin_Registry$'];   // singleton
         /** @type {typeof TeqFw_Core_Shared_Service_Route_Load_Namespaces_Request} */

@@ -3,8 +3,8 @@
  */
 export default class TeqFw_Http2_Front_Gate_Connect {
     constructor(spec) {
-        /** @type {TeqFw_Http2_Defaults} */
-        const DEF = spec['TeqFw_Http2_Defaults$']; // singleton
+        /** @type {TeqFw_Http2_Back_Defaults} */
+        const DEF = spec['TeqFw_Http2_Back_Defaults$']; // singleton
         /** @type {TeqFw_Web_Front_Api_Dto_Config} */
         const config = spec['TeqFw_Web_Front_Api_Dto_Config$']; // singleton
         /** @type {TeqFw_Http2_Front_Gate_Connect_AjaxLed} */

@@ -1,13 +1,13 @@
 /**
- * Start HTTP/2 server.
- * @namespace TeqFw_Http2_Back_Cli_Start
+ * Start HTTP/2 server to process web requests.
+ * @namespace TeqFw_Http2_Back_Cli_Server_Start
  */
 // MODULE'S IMPORT
 import $path from 'path';
 import $fs from 'fs';
 
 // DEFINE WORKING VARS
-const NS = 'TeqFw_Http2_Back_Cli_Start';
+const NS = 'TeqFw_Http2_Back_Cli_Server_Start';
 
 // DEFINE MODULE'S FUNCTIONS
 /**
@@ -15,48 +15,48 @@ const NS = 'TeqFw_Http2_Back_Cli_Start';
  *
  * @param {TeqFw_Di_SpecProxy} spec
  * @returns {TeqFw_Core_Back_Api_Dto_Command}
- * @constructor
- * @memberOf TeqFw_Http2_Back_Cli_Start
+ * @memberOf TeqFw_Http2_Back_Cli_Server_Start
  */
 function Factory(spec) {
     // EXTRACT DEPS
-    /** @type {TeqFw_Http2_Defaults} */
-    const DEF = spec['TeqFw_Http2_Defaults$']; // singleton
+    /** @type {TeqFw_Http2_Back_Defaults} */
+    const DEF = spec['TeqFw_Http2_Back_Defaults$'];
     /** @type {TeqFw_Core_Back_App.Bootstrap} */
-    const cfg = spec['TeqFw_Core_Back_App#Bootstrap$']; // singleton
+    const cfg = spec['TeqFw_Core_Back_App#Bootstrap$'];
     /** @type {TeqFw_Di_Container} */
-    const container = spec['TeqFw_Di_Container$']; // singleton
+    const container = spec['TeqFw_Di_Container$'];
     /** @type {TeqFw_Core_Back_Config} */
-    const config = spec['TeqFw_Core_Back_Config$']; // singleton
+    const config = spec['TeqFw_Core_Back_Config$'];
     /** @type {TeqFw_Core_Logger} */
-    const logger = spec['TeqFw_Core_Logger$']; // singleton
+    const logger = spec['TeqFw_Core_Logger$'];
     /** @type {Function|TeqFw_Core_Back_Api_Dto_Command.Factory} */
-    const fCommand = spec['TeqFw_Core_Back_Api_Dto_Command#Factory$']; // singleton
+    const fCommand = spec['TeqFw_Core_Back_Api_Dto_Command#Factory$'];
 
     // DEFINE INNER FUNCTIONS
     /**
      * Start the HTTP/2 server.
      * @returns {Promise<void>}
-     * @memberOf TeqFw_Http2_Back_Cli_Start
+     * @memberOf TeqFw_Http2_Back_Cli_Server_Start
      */
     const action = async function () {
         logger.info('Starting HTTP/2 server.');
         try {
             /**
-             * TODO: We have not lazy loading for DI yet, so we need to use Container directly
+             * TODO: We have no lazy loading for DI yet, so we need to use Container directly
              * TODO: to prevent all deps loading.
              */
             /** @type {TeqFw_Http2_Back_Server} */
             const server = await container.get('TeqFw_Http2_Back_Server$', NS);
             await server.init();
 
+            // TODO: add DTO for local config
             // collect startup configuration then compose path to PID file
             const portCfg = config.get('local/server/port');
-            const port = portCfg || DEF.SERVER_DEFAULT_PORT;
+            const port = portCfg || DEF.MOD.WEB.DATA.SERVER_PORT;
             const pid = process.pid.toString();
-            const pidPath = $path.join(cfg.root, DEF.PID_FILE_NAME);
-            // write PID to file then start the server
+            const pidPath = $path.join(cfg.root, DEF.DATA.FILE_PID);
 
+            // write PID to file then start the server
             $fs.writeFileSync(pidPath, pid);
             // PID is wrote => start the server
             await server.listen(port);
@@ -69,13 +69,13 @@ function Factory(spec) {
 
     // COMPOSE RESULT
     const res = fCommand.create();
-    res.realm = DEF.BACK_REALM;
-    res.name = 'start';
+    res.realm = DEF.REALM;
+    res.name = 'server-start';
     res.desc = 'Start the HTTP/2 server.';
     res.action = action;
     return res;
 }
 
 // MODULE'S EXPORT
-Object.defineProperty(Factory, 'name', {value: `${NS}.${Factory.constructor.name}`});
+Object.defineProperty(Factory, 'name', {value: `${NS}.${Factory.name}`});
 export default Factory;

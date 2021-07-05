@@ -4,30 +4,7 @@
     "path": "./src"
   },
   "commands": [
-    "TeqFw_Http2_Back_Cli_Start",
-    "TeqFw_Http2_Back_Cli_Stop"
-  ],
-  "http2": {
-    "realm": "http2",
-    "handlers": [
-      {
-        "factoryId": "TeqFw_Http2_Plugin_Handler_Service",
-        "before": [
-          "TeqFw_Http2_Plugin_Handler_Static"
-        ],
-        "weight": 100
-      }, {
-        "factoryId": "TeqFw_Http2_Plugin_Handler_Static",
-        "weight": 10
-      }
-    ],
-    "services": [
-      "TeqFw_Http2_Back_Service_Load_Config$",
-      "TeqFw_Http2_Back_Service_Load_Namespaces$"
-    ],
-    "statics": {
-      "/i18next-detect/": "/i18next-browser-languagedetector/dist/umd/",
-      "/i18next/": "/i18next/dist/umd/"
-    }
-  }
+    "TeqFw_Http2_Back_Cli_Server_Start",
+    "TeqFw_Http2_Back_Cli_Server_Stop"
+  ]
 }

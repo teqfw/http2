@@ -23,18 +23,16 @@ const INDEX_NAME = 'index.html';
  */
 async function Factory(spec) {
     // EXTRACT DEPS
-    /** @type {TeqFw_Http2_Defaults} */
-    const DEF = spec['TeqFw_Http2_Defaults$']; // singleton
+    /** @type {TeqFw_Http2_Back_Defaults} */
+    const DEF = spec['TeqFw_Http2_Back_Defaults$'];
     /** @type {TeqFw_Core_Back_Config} */
-    const config = spec['TeqFw_Core_Back_Config$']; // singleton
+    const config = spec['TeqFw_Core_Back_Config$'];
     /** @type {TeqFw_Core_Logger} */
-    const logger = spec['TeqFw_Core_Logger$']; // singleton
+    const logger = spec['TeqFw_Core_Logger$'];
     /** @type {TeqFw_Core_Back_Scan_Plugin_Registry} */
-    const regPlugins = spec['TeqFw_Core_Back_Scan_Plugin_Registry$']; // singleton
+    const regPlugins = spec['TeqFw_Core_Back_Scan_Plugin_Registry$'];
     /** @type {TeqFw_Http2_Back_Model_Realm_Registry} */
-    const regAreas = spec['TeqFw_Http2_Back_Model_Realm_Registry$']; // singleton
-    /** @type {typeof TeqFw_Http2_Back_Server_Stream_Report} */
-    const Report = spec['TeqFw_Http2_Back_Server_Stream#Report']; // class
+    const regAreas = spec['TeqFw_Http2_Back_Model_Realm_Registry$'];
 
     // PARSE INPUT & DEFINE WORKING VARS
     const rootFs = config.get('/path/root');    // path to project root

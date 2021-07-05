@@ -1,13 +1,13 @@
 /**
  * Stop HTTP/2 server.
- * @namespace TeqFw_Http2_Back_Cli_Stop
+ * @namespace TeqFw_Http2_Back_Cli_Server_Stop
  */
 // MODULE'S IMPORT
 import $path from 'path';
 import $fs from 'fs';
 
 // DEFINE WORKING VARS
-const NS = 'TeqFw_Http2_Back_Cli_Stop';
+const NS = 'TeqFw_Http2_Back_Cli_Server_Stop';
 
 // DEFINE MODULE'S FUNCTIONS
 /**
@@ -16,28 +16,28 @@ const NS = 'TeqFw_Http2_Back_Cli_Stop';
  * @param {TeqFw_Di_SpecProxy} spec
  * @returns {TeqFw_Core_Back_Api_Dto_Command}
  * @constructor
- * @memberOf TeqFw_Http2_Back_Cli_Stop
+ * @memberOf TeqFw_Http2_Back_Cli_Server_Stop
  */
 function Factory(spec) {
     // EXTRACT DEPS
-    /** @type {TeqFw_Http2_Defaults} */
-    const DEF = spec['TeqFw_Http2_Defaults$'];   // singleton
+    /** @type {TeqFw_Http2_Back_Defaults} */
+    const DEF = spec['TeqFw_Http2_Back_Defaults$'];
     /** @type {TeqFw_Core_Back_App.Bootstrap} */
-    const cfg = spec['TeqFw_Core_Back_App#Bootstrap$']; // singleton
+    const cfg = spec['TeqFw_Core_Back_App#Bootstrap$'];
     /** @type {Function|TeqFw_Core_Back_Api_Dto_Command.Factory} */
-    const fCommand = spec['TeqFw_Core_Back_Api_Dto_Command#Factory$']; // singleton
+    const fCommand = spec['TeqFw_Core_Back_Api_Dto_Command#Factory$'];
 
     // DEFINE INNER FUNCTIONS
     /**
      * Stop the HTTP/2 server.
      * @returns {Promise<void>}
-     * @memberOf TeqFw_Http2_Back_Cli_Stop
+     * @memberOf TeqFw_Http2_Back_Cli_Server_Stop
      */
     const action = async function () {
         try {
-            const pidPath = $path.join(cfg.root, DEF.PID_FILE_NAME);
+            const pidPath = $path.join(cfg.root, DEF.DATA.FILE_PID);
             const data = $fs.readFileSync(pidPath);
-            const pid = data.toString();
+            const pid = Number.parseInt(data.toString());
             console.info(`Stop web server (PID: ${pid}).`);
             process.kill(pid, 'SIGINT');
         } catch (e) {
@@ -48,8 +48,8 @@ function Factory(spec) {
 
     // COMPOSE RESULT
     const res = fCommand.create();
-    res.realm = DEF.BACK_REALM;
-    res.name = 'stop';
+    res.realm = DEF.REALM;
+    res.name = 'server-stop';
     res.desc = 'Stop the HTTP/2 server.';
     res.action = action;
     return res;

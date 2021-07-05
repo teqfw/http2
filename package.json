@@ -1,7 +1,7 @@
 {
   "name": "@teqfw/http2",
   "version": "0.1.0",
-  "description": "TeqFW: module description.",
+  "description": "TeqFW: HTTP/2 server.",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/@teqfw/http2#readme",
   "dependencies": {
-    "@teqfw/core": "github:teqfw/core",
+    "@teqfw/web": "github:teqfw/web",
     "mime-types": "*",
     "path-to-regexp": "*"
   }

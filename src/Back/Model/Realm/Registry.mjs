@@ -34,8 +34,8 @@ class TeqFw_Http2_Back_Model_Realm_Registry {
 
     constructor(spec) {
         // EXTRACT DEPS
-        /** @type {TeqFw_Http2_Defaults} */
-        const DEF = spec['TeqFw_Http2_Defaults$']; // singleton
+        /** @type {TeqFw_Http2_Back_Defaults} */
+        const DEF = spec['TeqFw_Http2_Back_Defaults$']; // singleton
         /** @type {TeqFw_Core_Back_Scan_Plugin_Registry} */
         const regPlugins = spec['TeqFw_Core_Back_Scan_Plugin_Registry$'];   // singleton
         /** @type {String[]} internal store for areas */

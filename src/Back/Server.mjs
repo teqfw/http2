@@ -1,65 +1,45 @@
+/**
+ * HTTP/2 server to process web requests.
+ *
+ * @namespace TeqFw_Http2_Back_Server
+ */
+// MODULE'S IMPORT
 import http2 from 'http2';
 
-/**
- * HTTP2 server for the application.
- */
+// MODULE'S CLASSES
 export default class TeqFw_Http2_Back_Server {
-
     constructor(spec) {
         // EXTRACT DEPS
-        /** @type {TeqFw_Http2_Back_Server_Stream} */
-        const factHndlStream = spec['TeqFw_Http2_Back_Server_Stream$'];   // singleton
+        /** @type {Function|TeqFw_Http2_Back_Server_Stream.action} */
+        const process = spec['TeqFw_Http2_Back_Server_Stream$'];
+        /** @type {TeqFw_Web_Back_Handler_Registry} */
+        const registryHndl = spec['TeqFw_Web_Back_Handler_Registry$'];
 
-        // INIT OWN PROPERTIES AND DEFINE WORKING VARS
+        // PARSE INPUT & DEFINE WORKING VARS
         /** @type {Http2Server} */
-        let server;
+        const server = http2.createServer();
 
         // DEFINE THIS INSTANCE METHODS
-
-        /**
-         * Create HTTP2 server and set event handlers.
-         *
-         * @returns {Promise<void>}
-         */
         this.init = async function () {
-            // PARSE INPUT & DEFINE WORKING VARS
-            /** @type {TeqFw_Http2_Back_Server_Stream.handler} */
-            const onStreamHndl = await factHndlStream.createHandler();
-
             // DEFINE INNER FUNCTIONS
-
             /**
              * Unhandled server error ('server is down').
              *
              * @param err
              */
-            function onErrorHndl(err) {
+            function handlerError(err) {
                 console.log('Server error: ' + err);
                 // debugger;
             }
 
             // MAIN FUNCTIONALITY
-            server = http2.createServer();
-            /* Available events for 'Http2Server':
-            *   - checkContinue
-            *   - connection
-            *   - request
-            *   - session
-            *   - sessionError
-            *   - stream
-            *   - timeout
-            * events from 'net.Server':
-            *   - close
-            *   - connection
-            *   - error
-            *   - listening
-            */
-            server.on('error', onErrorHndl);
-            server.on('stream', onStreamHndl);
+            await registryHndl.init(); // create all handlers (static, api, etc.)
+            server.on('error', handlerError);
+            server.on('stream', process);
         };
 
         /**
-         * Run HTTP2 server.
+         * Run HTTP/2 server.
          *
          * @param {number} port
          */
