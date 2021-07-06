@@ -1,6 +1,6 @@
 {
   "name": "@teqfw/http2",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "TeqFW: HTTP/2 server.",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,9 +10,7 @@
     "url": "git+https://github.com/@teqfw/http2.git"
   },
   "keywords": [
-    "pet",
-    "project",
-    "hobby",
+    "teqfw",
     "web",
     "applications"
   ],

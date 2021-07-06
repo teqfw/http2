@@ -33,11 +33,11 @@ function Factory(spec) {
      * @param {ServerHttp2Stream} stream
      * @param {Object<string, string>} headers
      * @param {number} flags
-     * @param {string} body
+     * @param {Buffer[]} chunks
      * @returns {Promise<void>}
      * @memberOf TeqFw_Http2_Back_Server_Request_Processor
      */
-    async function action(stream, headers, flags, body) {
+    async function action(stream, headers, flags, chunks) {
         // DEFINE INNER FUNCTIONS
 
         /**
@@ -77,7 +77,7 @@ function Factory(spec) {
         try {
             // create request context
             const context = fContext.create();
-            context.setRequestContext({stream, headers, flags, body});
+            context.setRequestContext({stream, headers, flags, chunks});
             // run all handlers to process request
             const all = handlers.items();
             for (const handler of all) {

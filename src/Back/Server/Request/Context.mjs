@@ -15,8 +15,6 @@ const NS = 'TeqFw_Http2_Back_Server_Request_Context';
 class TeqFw_Http2_Back_Server_Request_Context {
     /** @type {Object} */
     handlersShare;
-    /** @type {string} */
-    http2Body;
     /** @type {number} */
     http2Flags;
     /** @type {Object<string, string>} */
@@ -112,13 +110,13 @@ class TeqFw_Http2_Back_Server_Request_Context {
      * @param {ServerHttp2Stream} stream
      * @param {Object<string, string>} headers
      * @param {number} flags
-     * @param {string} body
+     * @param {Buffer[]} chunks
      */
-    setRequestContext({stream, headers, flags, body}) {
+    setRequestContext({stream, headers, flags, chunks}) {
         this.http2Stream = stream;
         this.http2Headers = headers;
         this.http2Flags = flags;
-        this.http2Body = body;
+        this.inputData = chunks;
     }
 
     setResponseBody(data) {
@@ -157,7 +155,6 @@ class Factory {
         this.create = function (data = null) {
             const res = new TeqFw_Http2_Back_Server_Request_Context();
             res.handlersShare = (typeof data?.handlersShare === 'object') ? data.handlersShare : {};
-            res.http2Body = data?.http2Body;
             res.http2Flags = data?.http2Flags;
             res.http2Headers = (typeof data?.http2Headers === 'object') ? data.http2Headers : {};
             res.http2Stream = data?.http2Stream;

@@ -102,7 +102,7 @@ function Factory(spec) {
                 // collect input data into array of chunks (if exists)
                 stream.on('data', (chunk) => chunks.push(chunk));
                 // continue process after input has been read
-                stream.on('end', () => process(stream, headers, flags, Buffer.concat(chunks).toString()));
+                stream.on('end', () => process(stream, headers, flags, chunks));
                 stream.on('error', (err) => respond500(stream, err));
             } catch (err) {
                 respond500(stream, err);
