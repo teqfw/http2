@@ -52,7 +52,7 @@ function Factory(spec) {
             // TODO: add DTO for local config
             // collect startup configuration then compose path to PID file
             const portCfg = config.get('local/server/port');
-            const port = portCfg || DEF.MOD_WEB.DATA.SERVER_PORT;
+            const port = portCfg || DEF.MOD_WEB.DATA_SERVER_PORT;
             const pid = process.pid.toString();
             const pidPath = $path.join(cfg.root, DEF.DATA_FILE_PID);
 
