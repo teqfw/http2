@@ -1,7 +1,9 @@
 {
-  "autoload": {
-    "ns": "TeqFw_Http2",
-    "path": "./src"
+  "di": {
+    "autoload": {
+      "ns": "TeqFw_Http2",
+      "path": "./src"
+    }
   },
   "commands": [
     "TeqFw_Http2_Back_Cli_Server_Start",

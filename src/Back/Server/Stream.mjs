@@ -13,7 +13,7 @@ const NS = 'TeqFw_Http2_Back_Server_Stream';
 /**
  * Factory to setup execution context and to create the stream handler.
  *
- * @param {TeqFw_Di_SpecProxy} spec
+ * @param {TeqFw_Di_Shared_SpecProxy} spec
  * @memberOf TeqFw_Http2_Back_Server_Stream
  */
 function Factory(spec) {
