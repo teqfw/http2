@@ -5,7 +5,11 @@
       "path": "./src"
     },
     "replace": [
-      {"orig": "TeqFw_Web_Back_Api_Request_IContext", "alter": "TeqFw_Http2_Back_Server_Request_Context"}
+      {
+        "orig": "TeqFw_Web_Back_Api_Request_IContext",
+        "alter": "TeqFw_Http2_Back_Server_Request_Context",
+        "area": "back"
+      }
     ]
   },
   "commands": [
