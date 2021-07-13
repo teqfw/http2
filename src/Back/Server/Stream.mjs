@@ -18,8 +18,8 @@ const NS = 'TeqFw_Http2_Back_Server_Stream';
  */
 function Factory(spec) {
     // EXTRACT DEPS
-    /** @type {TeqFw_Core_Logger} */
-    const logger = spec['TeqFw_Core_Logger$'];
+    /** @type {TeqFw_Core_Shared_Logger} */
+    const logger = spec['TeqFw_Core_Shared_Logger$'];
     /** @type {Function|TeqFw_Http2_Back_Server_Request_Processor.action} */
     const process = spec['TeqFw_Http2_Back_Server_Request_Processor$'];
 
@@ -56,7 +56,7 @@ function Factory(spec) {
         function logRequest(headers) {
             const method = headers[H2.HTTP2_HEADER_METHOD];
             const path = headers[H2.HTTP2_HEADER_PATH];
-            logger.debug(`${method} ${path}`);
+            logger.info(`${method} ${path}`);
         }
 
         /**
