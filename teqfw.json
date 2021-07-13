@@ -12,8 +12,10 @@
       }
     ]
   },
-  "commands": [
-    "TeqFw_Http2_Back_Cli_Server_Start",
-    "TeqFw_Http2_Back_Cli_Server_Stop"
-  ]
+  "core": {
+    "commands": [
+      "TeqFw_Http2_Back_Cli_Server_Start",
+      "TeqFw_Http2_Back_Cli_Server_Stop"
+    ]
+  }
 }
