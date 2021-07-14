@@ -21,8 +21,6 @@ function Factory(spec) {
     // EXTRACT DEPS
     /** @type {TeqFw_Http2_Back_Defaults} */
     const DEF = spec['TeqFw_Http2_Back_Defaults$'];
-    /** @type {TeqFw_Core_Back_Api_Dto_App_Boot} */
-    const cfg = spec['TeqFw_Core_Back_Api_Dto_App_Boot$'];
     /** @type {TeqFw_Di_Shared_Container} */
     const container = spec['TeqFw_Di_Shared_Container$'];
     /** @type {TeqFw_Core_Back_Config} */
@@ -52,10 +50,12 @@ function Factory(spec) {
 
             // TODO: add DTO for local config
             // collect startup configuration then compose path to PID file
-            const portCfg = config.get('local/server/port');
+            /** @type {TeqFw_Web_Back_Api_Dto_Config} */
+            const cfgLocal = config.getLocal(DEF.MOD_WEB.DESC_NODE);
+            const portCfg = cfgLocal.server.port;
             const port = portCfg || DEF.MOD_WEB.DATA_SERVER_PORT;
             const pid = process.pid.toString();
-            const pidPath = $path.join(cfg.projectRoot, DEF.DATA_FILE_PID);
+            const pidPath = $path.join(config.getBoot().projectRoot, DEF.DATA_FILE_PID);
 
             // write PID to file then start the server
             $fs.writeFileSync(pidPath, pid);
