@@ -8,6 +8,7 @@ import $fs from 'fs';
 
 // DEFINE WORKING VARS
 const NS = 'TeqFw_Http2_Back_Cli_Server_Start';
+const OPT_PORT = 'port';
 
 // DEFINE MODULE'S FUNCTIONS
 /**
@@ -33,10 +34,12 @@ function Factory(spec) {
     // DEFINE INNER FUNCTIONS
     /**
      * Start the HTTP/2 server.
+     *
+     * @param {Object} opts command options
      * @returns {Promise<void>}
      * @memberOf TeqFw_Http2_Back_Cli_Server_Start
      */
-    const action = async function () {
+    const action = async function (opts) {
         logger.pause(false);
         logger.info('Starting HTTP/2 server.');
         try {
@@ -48,11 +51,10 @@ function Factory(spec) {
             const server = await container.get('TeqFw_Http2_Back_Server$', NS);
             await server.init();
 
-            // TODO: add DTO for local config
             // collect startup configuration then compose path to PID file
             /** @type {TeqFw_Web_Back_Api_Dto_Config} */
             const cfgLocal = config.getLocal(DEF.MOD_WEB.DESC_NODE);
-            const portCfg = cfgLocal.server.port;
+            const portCfg = cfgLocal?.server?.port;
             const port = portCfg || DEF.MOD_WEB.DATA_SERVER_PORT;
             const pid = process.pid.toString();
             const pidPath = $path.join(config.getBoot().projectRoot, DEF.DATA_FILE_PID);
@@ -74,6 +76,11 @@ function Factory(spec) {
     res.name = 'server-start';
     res.desc = 'Start the HTTP/2 server.';
     res.action = action;
+    // add option --port
+    const optShort = fOpt.create();
+    optShort.flags = `-p, --${OPT_PORT} <port>`;
+    optShort.description = `port to use (default: ${DEF.MOD_WEB.DATA_SERVER_PORT})`;
+    res.opts.push(optShort);
     return res;
 }
 
