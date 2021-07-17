@@ -30,6 +30,8 @@ function Factory(spec) {
     const logger = spec['TeqFw_Core_Shared_Logger$'];
     /** @type {TeqFw_Core_Back_Api_Dto_Command.Factory} */
     const fCommand = spec['TeqFw_Core_Back_Api_Dto_Command#Factory$'];
+    /** @type {TeqFw_Core_Back_Api_Dto_Command_Option.Factory} */
+    const fOpt = spec['TeqFw_Core_Back_Api_Dto_Command_Option#Factory$'];
 
     // DEFINE INNER FUNCTIONS
     /**
