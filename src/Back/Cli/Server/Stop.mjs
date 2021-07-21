@@ -18,7 +18,7 @@ const NS = 'TeqFw_Http2_Back_Cli_Server_Stop';
  * @constructor
  * @memberOf TeqFw_Http2_Back_Cli_Server_Stop
  */
-function Factory(spec) {
+export default function Factory(spec) {
     // EXTRACT DEPS
     /** @type {TeqFw_Http2_Back_Defaults} */
     const DEF = spec['TeqFw_Http2_Back_Defaults$'];
@@ -55,6 +55,5 @@ function Factory(spec) {
     return res;
 }
 
-// MODULE'S EXPORT
-Object.defineProperty(Factory, 'name', {value: `${NS}.${Factory.constructor.name}`});
-export default Factory;
+// finalize code components for this es6-module
+Object.defineProperty(Factory, 'name', {value: `${NS}.${Factory.name}`});

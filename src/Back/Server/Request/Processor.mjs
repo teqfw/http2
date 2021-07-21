@@ -17,11 +17,11 @@ const NS = 'TeqFw_Http2_Back_Server_Request_Processor';
  * @constructor
  * @memberOf TeqFw_Http2_Back_Server_Request_Processor
  */
-function Factory(spec) {
+export default function Factory(spec) {
     // EXTRACT DEPS
     /** @type {TeqFw_Web_Back_Handler_Registry} */
     const handlers = spec['TeqFw_Web_Back_Handler_Registry$'];
-    /** @type {TeqFw_Http2_Back_Server_Request_Context.Factory} */
+    /** @type {TeqFw_Web_Back_Api_Request_IContext.Factory} */
     const fContext = spec['TeqFw_Http2_Back_Server_Request_Context#Factory$'];
 
     // PARSE INPUT & DEFINE WORKING VARS
@@ -111,8 +111,5 @@ function Factory(spec) {
     return action;
 }
 
-// MODULE'S EXPORT
+// finalize code components for this es6-module
 Object.defineProperty(Factory, 'name', {value: `${NS}.${Factory.name}`});
-export {
-    Factory as default,
-};

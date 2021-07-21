@@ -16,7 +16,7 @@ const NS = 'TeqFw_Http2_Back_Server_Stream';
  * @param {TeqFw_Di_Shared_SpecProxy} spec
  * @memberOf TeqFw_Http2_Back_Server_Stream
  */
-function Factory(spec) {
+export function Factory(spec) {
     // EXTRACT DEPS
     /** @type {TeqFw_Core_Shared_Logger} */
     const logger = spec['TeqFw_Core_Shared_Logger$'];
@@ -119,8 +119,5 @@ function Factory(spec) {
 
 }
 
-// MODULE'S EXPORT
+// finalize code components for this es6-module
 Object.defineProperty(Factory, 'name', {value: `${NS}.${Factory.name}`});
-export {
-    Factory as default,
-};

@@ -12,7 +12,7 @@ const NS = 'TeqFw_Http2_Back_Server_Request_Context';
 /**
  * @implements TeqFw_Web_Back_Api_Request_IContext
  */
-class TeqFw_Http2_Back_Server_Request_Context {
+export default class TeqFw_Http2_Back_Server_Request_Context {
     /** @type {Object} */
     handlersShare;
     /** @type {number} */
@@ -146,7 +146,7 @@ class TeqFw_Http2_Back_Server_Request_Context {
  * Factory to create new instances.
  * @memberOf TeqFw_Http2_Back_Server_Request_Context
  */
-class Factory {
+export class Factory {
     constructor() {
         /**
          * @param {TeqFw_Http2_Back_Server_Request_Context|null} data
@@ -169,9 +169,4 @@ class Factory {
 }
 
 // finalize code components for this es6-module
-Object.freeze(TeqFw_Http2_Back_Server_Request_Context);
 Object.defineProperty(Factory, 'name', {value: `${NS}.${Factory.constructor.name}`});
-export {
-    TeqFw_Http2_Back_Server_Request_Context as default,
-    Factory
-};

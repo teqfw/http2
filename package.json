@@ -1,7 +1,7 @@
 {
   "name": "@teqfw/http2",
   "version": "0.2.0",
-  "description": "TeqFW: HTTP/2 server.",
+  "description": "TeqFW: web server (HTTP/2).",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,9 +10,13 @@
     "url": "git+https://github.com/@teqfw/http2.git"
   },
   "keywords": [
+    "ecmascript 2015",
+    "es6+",
+    "pwa",
+    "spa",
     "teqfw",
-    "web",
-    "applications"
+    "tequila framework",
+    "web applications"
   ],
   "author": "Alex Gusev <alex@flancer64.com>",
   "license": "AGPL-3.0-only",
@@ -21,6 +25,6 @@
   },
   "homepage": "https://github.com/@teqfw/http2#readme",
   "dependencies": {
-    "@teqfw/web": "github:teqfw/web"
+    "@teqfw/web": "*"
   }
 }

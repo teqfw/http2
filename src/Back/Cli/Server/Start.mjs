@@ -18,7 +18,7 @@ const OPT_PORT = 'port';
  * @returns {TeqFw_Core_Back_Api_Dto_Command}
  * @memberOf TeqFw_Http2_Back_Cli_Server_Start
  */
-function Factory(spec) {
+export default function Factory(spec) {
     // EXTRACT DEPS
     /** @type {TeqFw_Http2_Back_Defaults} */
     const DEF = spec['TeqFw_Http2_Back_Defaults$'];
@@ -54,10 +54,14 @@ function Factory(spec) {
             await server.init();
 
             // collect startup configuration then compose path to PID file
+            // port from command option
+            const portOpt = opts[OPT_PORT];
+            // port from local configuration
             /** @type {TeqFw_Web_Back_Api_Dto_Config} */
             const cfgLocal = config.getLocal(DEF.MOD_WEB.DESC_NODE);
             const portCfg = cfgLocal?.server?.port;
-            const port = portCfg || DEF.MOD_WEB.DATA_SERVER_PORT;
+            // use port: command opt / local cfg / default
+            const port = portOpt || portCfg || DEF.MOD_WEB.DATA_SERVER_PORT;
             const pid = process.pid.toString();
             const pidPath = $path.join(config.getBoot().projectRoot, DEF.DATA_FILE_PID);
 
@@ -86,6 +90,5 @@ function Factory(spec) {
     return res;
 }
 
-// MODULE'S EXPORT
+// finalize code components for this es6-module
 Object.defineProperty(Factory, 'name', {value: `${NS}.${Factory.name}`});
-export default Factory;

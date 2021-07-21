@@ -3,14 +3,7 @@
     "autoload": {
       "ns": "TeqFw_Http2",
       "path": "./src"
-    },
-    "replace": [
-      {
-        "orig": "TeqFw_Web_Back_Api_Request_IContext",
-        "alter": "TeqFw_Http2_Back_Server_Request_Context",
-        "area": "back"
-      }
-    ]
+    }
   },
   "core": {
     "commands": [
