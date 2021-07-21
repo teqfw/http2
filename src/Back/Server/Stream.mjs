@@ -16,7 +16,7 @@ const NS = 'TeqFw_Http2_Back_Server_Stream';
  * @param {TeqFw_Di_Shared_SpecProxy} spec
  * @memberOf TeqFw_Http2_Back_Server_Stream
  */
-export function Factory(spec) {
+export default function Factory(spec) {
     // EXTRACT DEPS
     /** @type {TeqFw_Core_Shared_Logger} */
     const logger = spec['TeqFw_Core_Shared_Logger$'];
