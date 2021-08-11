@@ -19,6 +19,8 @@ const NS = 'TeqFw_Http2_Back_Server_Request_Processor';
  */
 export default function Factory(spec) {
     // EXTRACT DEPS
+    /** @type {TeqFw_Http2_Back_Defaults} */
+    const DEF = spec['TeqFw_Http2_Back_Defaults$'];
     /** @type {TeqFw_Web_Back_Handler_Registry} */
     const handlers = spec['TeqFw_Web_Back_Handler_Registry$'];
     /** @type {TeqFw_Web_Back_Api_Request_IContext.Factory} */
@@ -91,7 +93,13 @@ export default function Factory(spec) {
                 } else {
                     // there is data to return in response
                     const headers = context.getResponseHeaders();
-                    headers[H2.HTTP2_HEADER_STATUS] = H2.HTTP_STATUS_OK.toString();
+                    // move HTTP/1 'status' to HTTP/2 ':status'
+                    if (headers[DEF.MOD_WEB.HTTP_HEADER_STATUS]) {
+                        headers[H2.HTTP2_HEADER_STATUS] = headers[DEF.MOD_WEB.HTTP_HEADER_STATUS];
+                        delete headers[DEF.MOD_WEB.HTTP_HEADER_STATUS];
+                    } else if (!headers[H2.HTTP2_HEADER_STATUS]) {
+                        headers[H2.HTTP2_HEADER_STATUS] = H2.HTTP_STATUS_OK.toString();
+                    }
                     const file = context.getResponseFilePath();
                     if (file) {
                         stream.respondWithFile(file, headers);
