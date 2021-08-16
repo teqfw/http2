@@ -3,8 +3,9 @@
  * @namespace TeqFw_Http2_Back_Cli_Server_Stop
  */
 // MODULE'S IMPORT
-import $path from 'path';
-import $fs from 'fs';
+import process from 'process';
+import {join} from 'path';
+import {readFileSync} from 'fs';
 
 // DEFINE WORKING VARS
 const NS = 'TeqFw_Http2_Back_Cli_Server_Stop';
@@ -35,8 +36,8 @@ export default function Factory(spec) {
      */
     const action = async function () {
         try {
-            const pidPath = $path.join(config.getBoot().projectRoot, DEF.DATA_FILE_PID);
-            const data = $fs.readFileSync(pidPath);
+            const pidPath = join(config.getBoot().projectRoot, DEF.DATA_FILE_PID);
+            const data = readFileSync(pidPath);
             const pid = Number.parseInt(data.toString());
             console.info(`Stop web server (PID: ${pid}).`);
             process.kill(pid, 'SIGINT');
