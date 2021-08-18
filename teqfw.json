@@ -1,11 +1,11 @@
 {
-  "di": {
+  "@teqfw/di": {
     "autoload": {
       "ns": "TeqFw_Http2",
       "path": "./src"
     }
   },
-  "core": {
+  "@teqfw/core": {
     "commands": [
       "TeqFw_Http2_Back_Cli_Server_Start",
       "TeqFw_Http2_Back_Cli_Server_Stop"

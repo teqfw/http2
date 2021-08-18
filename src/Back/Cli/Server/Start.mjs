@@ -4,7 +4,7 @@
  */
 // MODULE'S IMPORT
 import {join} from 'path';
-import {writeFileSync, mkdirSync, existsSync} from 'fs';
+import {existsSync, mkdirSync, writeFileSync} from 'fs';
 
 // DEFINE WORKING VARS
 const NS = 'TeqFw_Http2_Back_Cli_Server_Start';
@@ -58,7 +58,7 @@ export default function Factory(spec) {
             const portOpt = opts[OPT_PORT];
             // port from local configuration
             /** @type {TeqFw_Web_Back_Api_Dto_Config_Local} */
-            const cfgLocal = config.getLocal(DEF.MOD_WEB.DESC_NODE);
+            const cfgLocal = config.getLocal(DEF.MOD_WEB.SHARED.NAME);
             const portCfg = cfgLocal?.server?.port;
             // use port: command opt / local cfg / default
             const port = portOpt || portCfg || DEF.MOD_WEB.DATA_SERVER_PORT;
