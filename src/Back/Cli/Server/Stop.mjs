@@ -38,7 +38,8 @@ export default function Factory(spec) {
         try {
             const pidPath = join(config.getBoot().projectRoot, DEF.DATA_FILE_PID);
             const data = readFileSync(pidPath);
-            const pid = Number.parseInt(data.toString());
+            // noinspection JSCheckFunctionSignatures
+            const pid = Number.parseInt(data);
             console.info(`Stop web server (PID: ${pid}).`);
             process.kill(pid, 'SIGINT');
         } catch (e) {
