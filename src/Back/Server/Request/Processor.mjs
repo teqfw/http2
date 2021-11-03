@@ -103,9 +103,11 @@ export default function Factory(spec) {
                     const file = context.getResponseFilePath();
                     if (file) {
                         stream.respondWithFile(file, headers);
-                    } else {
+                    } else if (!context.sse) {
                         stream.respond(headers);
                         stream.end(context.getResponseBody());
+                    } else {
+                        const bp = true;
                     }
                 }
             }
