@@ -140,6 +140,10 @@ export default class TeqFw_Http2_Back_Server_Request_Context {
             this.responseHeaders[key] = value;
         }
     }
+
+    getStream() {
+        return this.http2Stream;
+    }
 }
 
 /**
